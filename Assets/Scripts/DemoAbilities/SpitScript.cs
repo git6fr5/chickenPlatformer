@@ -38,7 +38,7 @@ public class SpitScript : MonoBehaviour
     {
 
         Collider2D hitObject = hitInfo.collider;
-        print(DebugTag + "The object " + hitInfo.otherCollider.name + " has collided with " + hitObject.name);
+        if (DEBUG_collision) { print(DebugTag + "The object " + hitInfo.otherCollider.name + " has collided with " + hitObject.name); }
         LayerMask layerMask = LayerMask.GetMask(LayerMask.LayerToName(hitObject.gameObject.layer));
 
         if (DEBUG_collision) { print(DebugTag + "Projectile has hit an object in the layer " + layerMask.value.ToString() + " but need the layer " + abilityScript.targetLayer.value.ToString()); }

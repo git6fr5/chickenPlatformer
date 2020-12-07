@@ -53,8 +53,13 @@ public class CharacterScript : MonoBehaviour
     /* --- Ability --- */
 
     bool cast = false;
-    public GameObject abilityObjectBase;
-    private GameObject abilityObject;
+
+    private bool hasAbility = false;
+    public List<GameObject> abilityObjectList = new List<GameObject>();
+
+    private GameObject selectedAbilityObject;
+    public int selectedAbilityIndex = 0;
+
     private string abilityName;
     private string abilityType;
     private bool abilityIsBuff;
@@ -72,7 +77,7 @@ public class CharacterScript : MonoBehaviour
         DamageTypes();
         ShieldBases();
         Health();
-        Ability();
+        SelectAbility(selectedAbilityIndex);
     }
 
     // Update is called once per frame
@@ -94,16 +99,8 @@ public class CharacterScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Client)
-        {
-            MotionControl();
-            AbilityControl();
-        }
-        else
-        {
-            AIMotionControl();
-            AIAbilityControl();
-        }
+        MotionControl();
+        AbilityControl();
     }
 
     /* --- Status Functions --- */
@@ -290,12 +287,6 @@ public class CharacterScript : MonoBehaviour
         animator.SetFloat("speed", Mathf.Abs(horizontalMove));
     }
 
-    private void AIMotionControl()
-    {
-        controller2D.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
-        jump = false;
-    }
-
     public void OnLanding()
     {
         //animator.SetBool("isJumping", false);
@@ -303,21 +294,31 @@ public class CharacterScript : MonoBehaviour
 
     /* --- Ability Functions --- */
 
-    private void Ability()
+    public void SelectAbility(int index)
     {
-        abilityObject = Instantiate(abilityObjectBase, gameObject.transform.position, Quaternion.identity, gameObject.transform);
-        abilityName = abilityObjectBase.name;
-        abilityType = abilityObjectBase.GetComponent<AbilityScript>().abilityType;
-        abilityIsBuff = abilityObjectBase.GetComponent<AbilityScript>().isBuff;
-        if (abilityIsBuff)
+        if (DEBUG_ability) { print("Attempting to select a new ability for " + gameObject.name);  }
+        if (index < abilityObjectList.Count)
         {
-            targetLayer = friendlyLayer;
+            selectedAbilityObject = abilityObjectList[index];
+            if (DEBUG_ability) { print("Selected a new ability for " + selectedAbilityObject.name);  }
         }
-        else
+        if (selectedAbilityObject != null)
         {
-            targetLayer = enemyLayer;
+            //abilityObject = Instantiate(abilityObject, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+            abilityName = selectedAbilityObject.name;
+            abilityType = selectedAbilityObject.GetComponent<AbilityScript>().abilityType;
+            abilityIsBuff = selectedAbilityObject.GetComponent<AbilityScript>().isBuff;
+            if (abilityIsBuff)
+            {
+                targetLayer = friendlyLayer;
+            }
+            else
+            {
+                targetLayer = enemyLayer;
+            }
+            if (DEBUG_ability) { print("Name of active ability is " + abilityName + " which is a " + abilityType + " ability, and it targets the layer " + ((int)targetLayer).ToString()); }
+            hasAbility = true;
         }
-        if (DEBUG_ability) { print("Name of active ability is " + abilityName + " which is a " + abilityType + " ability, and it targets the layer " + ((int)targetLayer).ToString()); }
     }
 
     private void AbilityControlFlag()
@@ -327,7 +328,10 @@ public class CharacterScript : MonoBehaviour
 
     private void AbilityControl()
     {
-        controller2D.Cast(abilityObject, cast, Camera.main.ScreenToWorldPoint(Input.mousePosition), targetLayer);
+        if (hasAbility)
+        {
+            controller2D.Cast(selectedAbilityObject, cast, Camera.main.ScreenToWorldPoint(Input.mousePosition), targetLayer);
+        }
         cast = false;
     }
 
@@ -342,12 +346,6 @@ public class CharacterScript : MonoBehaviour
             cast = false;
         }
         //animator.SetTrigger("attack");
-    }
-
-    private void AIAbilityControl()
-    {
-        controller2D.Cast(abilityObject, cast, enemyDirection, targetLayer);
-        cast = false;
     }
 
 }

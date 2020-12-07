@@ -7,8 +7,11 @@ public class AbilityScript : MonoBehaviour
     /* --- Debug --- */
     private string DebugTag = "[MnM AbilityScript]  ";
     private bool DEBUG_cast = false;
+    private bool DEBUG_collision = true;
 
     /* --- Parameters ---*/
+    public LayerMask collectorLayer;
+
     public string abilityType;
     public bool isBuff = false;
 
@@ -26,6 +29,22 @@ public class AbilityScript : MonoBehaviour
     public GameObject casterObject;
     public Vector2 target;
     public LayerMask targetLayer;
+
+    void OnCollisionEnter2D(Collision2D hitInfo)
+    {
+        Collider2D hitCollider = hitInfo.collider;
+        if (DEBUG_collision) { print(DebugTag + "The object " + hitInfo.otherCollider.name + " has collided with " + hitCollider.name); }
+        LayerMask layerMask = LayerMask.GetMask(LayerMask.LayerToName(hitCollider.gameObject.layer));
+
+        if (layerMask == collectorLayer)
+        {
+            print("COLLIDED WITH BOB?");
+            hitCollider.gameObject.GetComponent<CharacterScript>().abilityObjectList.Add(gameObject);
+            hitCollider.gameObject.GetComponent<CharacterScript>().selectedAbilityIndex = hitCollider.gameObject.GetComponent<CharacterScript>().selectedAbilityIndex + 1;
+            hitCollider.gameObject.GetComponent<CharacterScript>().SelectAbility(hitCollider.gameObject.GetComponent<CharacterScript>().selectedAbilityIndex);
+            //Destroy(gameObject);
+        }
+    }
 
     public void Cast(GameObject _casterObject, Vector2 _target, LayerMask _targetLayer)
     {
