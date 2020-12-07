@@ -278,8 +278,8 @@ public class CharacterScript : MonoBehaviour
     {
         if (aggro) 
         {
-            if (enemyDirection.x > 0) { horizontalMove = right; }
-            else { horizontalMove = left; }
+            if (enemyDirection.x > 0) { horizontalMove = right * runSpeed; }
+            else { horizontalMove = left * runSpeed; }
         }
         else
         {
