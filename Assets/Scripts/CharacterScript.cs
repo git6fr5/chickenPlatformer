@@ -18,8 +18,8 @@ public class CharacterScript : MonoBehaviour
 
     public float characterHealthBase = 3f;
     protected float characterModifierHealth = 0;
-    public float magicalShieldBase = 2f;
-    public float mechanicalShieldBase = 2f;
+    public float magicalShieldBase = 0f;
+    public float mechanicalShieldBase = 0f;
 
     private Dictionary<string, float> damageTypes = new Dictionary<string, float>();
     private Dictionary<string, float> shieldBases = new Dictionary<string, float>();
@@ -103,6 +103,8 @@ public class CharacterScript : MonoBehaviour
     void Update()
     {
         StatusFlag();
+        OutOfWorldFlag();
+
         if (Client)
         {
             MotionControlFlag();
@@ -154,11 +156,11 @@ public class CharacterScript : MonoBehaviour
 
         int numHearts = (int)Mathf.Ceil(characterHealth);
         if (DEBUG_status) { print(DebugTag + "Running StatusBar for Hearts with " + numHearts.ToString()); }
-        heartObjects = DisplayOnStatusBar(numHearts, 2, spriteDataBase[0], heartObjects);
+        heartObjects = DisplayOnStatusBar(numHearts, 0, spriteDataBase[0], heartObjects);
         int magicalShields = (int)Mathf.Ceil(GetShield("magical"));
         magicalShieldObjects = DisplayOnStatusBar(magicalShields, 1, spriteDataBase[1], magicalShieldObjects);
         int mechanicalShields = (int)Mathf.Ceil(GetShield("mechanical"));
-        mechanicalShieldObjects = DisplayOnStatusBar(mechanicalShields, 0, spriteDataBase[2], mechanicalShieldObjects);
+        mechanicalShieldObjects = DisplayOnStatusBar(mechanicalShields, 2, spriteDataBase[2], mechanicalShieldObjects);
     }
 
     private GameObject[] DisplayOnStatusBar(int size, int row_index, Sprite sprite, GameObject[] spriteObjects)
@@ -380,7 +382,10 @@ public class CharacterScript : MonoBehaviour
             {
                 targetLayer = enemyLayer;
             }
-
+            if (Client)
+            {
+                inventoryScript.selectedAbilityImage.sprite = selectedAbilityObject.GetComponent<SpriteRenderer>().sprite;
+            }
             if (DEBUG_ability) { print("Name of active ability is " + abilityName + " which is a " + abilityType + " ability, and it targets the layer " + ((int)targetLayer).ToString()); }
             hasAbility = true;
         }
@@ -427,7 +432,6 @@ public class CharacterScript : MonoBehaviour
                 selectedAbilityScript.Apply(selectedAbilityObject, false, targetLayer);
             }
             SelectAbility(selectedAbilityIndex);
-            inventoryScript.selectedAbilityImage.sprite = selectedAbilityObject.GetComponent<SpriteRenderer>().sprite;
         }
         selectingAbility = false;
         cast = false;
@@ -478,4 +482,12 @@ public class CharacterScript : MonoBehaviour
         }
     }
 
+    private void OutOfWorldFlag()
+    {
+        if (transform.position.y < -100)
+        {
+            //onDeath = true;
+            transform.position = respawnObject.transform.position;
+        }
+    }
 }
