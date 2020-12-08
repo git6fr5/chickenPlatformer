@@ -4,6 +4,7 @@ using UnityEngine.Events;
 public class CharacterController2D : MonoBehaviour
 {
 	[SerializeField] public float m_JumpForce = 400f;                          // Amount of force added when the player jumps.
+	[SerializeField] public float m_CrouchForce = 400f;						   // Amount of force added when the player crouches.
 	[Range(0, 1)] [SerializeField] public float m_CrouchSpeed = .36f;          // Amount of maxSpeed applied to crouching movement. 1 = 100%
 	[Range(0, .3f)] [SerializeField] public float m_MovementSmoothing = .05f;  // How much to smooth out the movement
 	[SerializeField] public bool m_AirControl = false;                         // Whether or not a player can steer while jumping;
@@ -83,6 +84,7 @@ public class CharacterController2D : MonoBehaviour
 				if (!m_wasCrouching)
 				{
 					m_wasCrouching = true;
+					m_Rigidbody2D.AddForce(new Vector2(0f, -m_CrouchForce));
 					OnCrouchEvent.Invoke(true);
 				}
 

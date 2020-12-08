@@ -7,7 +7,7 @@ public class AbilityScript : MonoBehaviour
     /* --- Debug --- */
     private string DebugTag = "[MnM AbilityScript]  ";
     private bool DEBUG_cast = false;
-    private bool DEBUG_collision = true;
+    private bool DEBUG_collision = false;
 
     /* --- Parameters ---*/
     public LayerMask collectorLayer;
@@ -38,10 +38,27 @@ public class AbilityScript : MonoBehaviour
 
         if (layerMask == collectorLayer)
         {
-            print("COLLIDED WITH BOB?");
-            hitCollider.gameObject.GetComponent<CharacterScript>().abilityObjectList.Add(gameObject);
-            hitCollider.gameObject.GetComponent<CharacterScript>().selectedAbilityIndex = hitCollider.gameObject.GetComponent<CharacterScript>().selectedAbilityIndex + 1;
-            hitCollider.gameObject.GetComponent<CharacterScript>().SelectAbility(hitCollider.gameObject.GetComponent<CharacterScript>().selectedAbilityIndex);
+            CharacterScript hitCharacterScript = hitCollider.gameObject.GetComponent<CharacterScript>();
+            bool alreadyAccquired = false;
+            foreach (GameObject abilityObject in hitCharacterScript.abilityObjectList)
+            {
+                if(abilityObject.name == name)
+                {
+                    alreadyAccquired = true;
+                    break;
+                }
+            }
+            if (!alreadyAccquired)
+            {
+                hitCharacterScript.abilityObjectList.Add(gameObject);
+                hitCharacterScript.selectedAbilityIndex = hitCharacterScript.selectedAbilityIndex;
+                hitCharacterScript.SelectAbility(hitCharacterScript.selectedAbilityIndex);
+                transform.parent = hitCollider.gameObject.transform;
+                GetComponent<SpriteRenderer>().enabled = false;
+                Destroy(GetComponent<Rigidbody2D>());
+                Destroy(GetComponent<BoxCollider2D>());
+                transform.localPosition = new Vector3(0, 0, 0);
+            }
             //Destroy(gameObject);
         }
     }

@@ -10,6 +10,7 @@ public class CharacterScript : MonoBehaviour
     private bool DEBUG_status = false;
     private bool DEBUG_motion = false;
     private bool DEBUG_ability = false;
+    private bool DEBUG_inventory = true;
 
     public bool Client = false;
 
@@ -59,6 +60,7 @@ public class CharacterScript : MonoBehaviour
 
     private GameObject selectedAbilityObject;
     public int selectedAbilityIndex = 0;
+    private bool selectingAbility = false;
 
     private string abilityName;
     private string abilityType;
@@ -71,6 +73,14 @@ public class CharacterScript : MonoBehaviour
     public CharacterController2D controller2D;
     public Animator animator;
 
+    /*--- Inventory ---*/
+
+    public GameObject inventoryObject;
+    private InventoryScript inventoryScript;
+    bool openInventory = false;
+    bool openedInventory = false;
+    //float inventoryTime = 0.2f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -78,6 +88,10 @@ public class CharacterScript : MonoBehaviour
         ShieldBases();
         Health();
         SelectAbility(selectedAbilityIndex);
+        if (Client)
+        {
+            Inventory();
+        }
     }
 
     // Update is called once per frame
@@ -88,6 +102,7 @@ public class CharacterScript : MonoBehaviour
         {
             MotionControlFlag();
             AbilityControlFlag();
+            InventoryControlFlag();
         }
         else
         {
@@ -95,12 +110,20 @@ public class CharacterScript : MonoBehaviour
             AIMotionControlFlag();
             AIAbilityControlFlag();
         }
+        if (openInventory)
+        {
+            InventorySelectFlag();
+        }
     }
 
     void FixedUpdate()
     {
         MotionControl();
         AbilityControl();
+        if (Client)
+        {
+           InventoryControl();
+        }
     }
 
     /* --- Status Functions --- */
@@ -150,7 +173,6 @@ public class CharacterScript : MonoBehaviour
         else
         {
             xOffSet = (-(size - 1) / 2) + 0.5f;
-
         }
 
         SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
@@ -323,7 +345,20 @@ public class CharacterScript : MonoBehaviour
 
     private void AbilityControlFlag()
     {
-        if (Input.GetKeyDown("z")) { print(DebugTag + "Pressed Cast"); cast = true; }
+        for (int i = 0; i < 10; i++)
+        {
+            if (Input.GetKeyDown(i.ToString()))
+            {
+                selectingAbility = true;
+                selectedAbilityIndex = i - 1;
+            }
+        }
+        if (Input.GetKeyDown("z") || Input.GetMouseButtonDown(0)) { print(DebugTag + "Pressed Cast"); cast = true; }
+        if (Input.GetKeyDown("x") || Input.GetMouseButtonDown(1)) 
+        {
+            selectingAbility = true;
+            selectedAbilityIndex = (selectedAbilityIndex + 1) % abilityObjectList.Count;
+        }
     }
 
     private void AbilityControl()
@@ -332,6 +367,12 @@ public class CharacterScript : MonoBehaviour
         {
             controller2D.Cast(selectedAbilityObject, cast, Camera.main.ScreenToWorldPoint(Input.mousePosition), targetLayer);
         }
+        if (selectingAbility)
+        {
+            SelectAbility(selectedAbilityIndex);
+            inventoryScript.selectedAbilityImage.sprite = selectedAbilityObject.GetComponent<SpriteRenderer>().sprite;
+        }
+        selectingAbility = false;
         cast = false;
     }
 
@@ -346,6 +387,35 @@ public class CharacterScript : MonoBehaviour
             cast = false;
         }
         //animator.SetTrigger("attack");
+    }
+
+    /* --- Inventory Functions --- */
+
+    private void Inventory()
+    {
+        inventoryScript = inventoryObject.GetComponent<InventoryScript>();
+    }
+
+    private void InventoryControlFlag()
+    {
+        if (Input.GetKeyDown("e")) { print(DebugTag + "Pressed Pause"); openInventory = !openInventory; }
+    }
+
+    private void InventorySelectFlag()
+    {
+
+    }
+
+    private void InventoryControl()
+    {
+        if (openInventory && (!openedInventory))
+        {
+            openedInventory = true;
+        }
+        else if (!openInventory && (openedInventory))
+        {
+            openedInventory = false;
+        }
     }
 
 }
