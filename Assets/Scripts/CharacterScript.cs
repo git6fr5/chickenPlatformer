@@ -38,9 +38,12 @@ public class CharacterScript : MonoBehaviour
     bool onDeath = false;
 
     public float aggroRadius;
+    public float attackRange;
     private bool aggro;
     private GameObject enemyObject;
     private Vector3 enemyDirection;
+
+    public GameObject respawnObject;
 
     /* --- Motion --- */
 
@@ -251,10 +254,38 @@ public class CharacterScript : MonoBehaviour
     {
         foreach (GameObject _abilityObject in abilityObjectList)
         {
-            Instantiate(_abilityObject, transform.position, Quaternion.identity);
+            GameObject droppedAbilityObject = Instantiate(_abilityObject, transform.position, Quaternion.identity);
+            droppedAbilityObject.GetComponent<SpriteRenderer>().enabled = true;
+            droppedAbilityObject.GetComponent<Rigidbody2D>().simulated = true;
+            droppedAbilityObject.GetComponent<BoxCollider2D>().enabled = true;
+            droppedAbilityObject.transform.parent = null;
+            Destroy(_abilityObject);
         }
-        Destroy(gameObject, 0.4f);
+        if (Client)
+        {
+            Respawn();
+        }
+        else
+        {
+            Destroy(gameObject, 0.4f);
+        }
         onDeath = false;
+    }
+
+    private void Respawn()
+    {
+        damageTypes = new Dictionary<string, float>();
+        shieldBases = new Dictionary<string, float>();
+        abilityObjectList = new List<GameObject>();
+        inventoryScript.ResetToDefault();
+        totalDamage = 0;
+
+        DamageTypes();
+        ShieldBases();
+        Health();
+        SelectAbility(0);
+
+        transform.position = new Vector3(respawnObject.transform.position.x, respawnObject.transform.position.y, 0);
     }
 
     private void AIAggroFlag()
@@ -271,7 +302,6 @@ public class CharacterScript : MonoBehaviour
         else
         {
             aggro = false;
-            horizontalMove = 0f;
         }
     }
 
@@ -304,7 +334,11 @@ public class CharacterScript : MonoBehaviour
     {
         if (aggro) 
         {
-            if (enemyDirection.x > 0) { horizontalMove = right * runSpeed; }
+            if (Vector3.Distance(transform.position, enemyObject.transform.position) < attackRange)
+            {
+                horizontalMove = 0f;
+            }
+            else if (enemyDirection.x > 0) { horizontalMove = right * runSpeed; }
             else { horizontalMove = left * runSpeed; }
         }
         else
@@ -330,9 +364,7 @@ public class CharacterScript : MonoBehaviour
         {
             selectedAbilityObject = abilityObjectList[index];
             if (DEBUG_ability) { print("Selected a new ability for " + selectedAbilityObject.name);  }
-        }
-        if (selectedAbilityObject != null)
-        {
+
             //abilityObject = Instantiate(abilityObject, gameObject.transform.position, Quaternion.identity, gameObject.transform);
             abilityName = selectedAbilityObject.name;
             selectedAbilityScript = selectedAbilityObject.GetComponent<AbilityScript>();
@@ -354,6 +386,7 @@ public class CharacterScript : MonoBehaviour
         }
         else
         {
+            selectedAbilityObject = null;
             hasAbility = false;
         }
     }
@@ -369,7 +402,7 @@ public class CharacterScript : MonoBehaviour
             }
         }
         if (Input.GetKeyDown("z") || Input.GetMouseButtonDown(0)) { print(DebugTag + "Pressed Cast"); cast = true; }
-        if (Input.GetKeyDown("x") || Input.GetMouseButtonDown(1)) 
+        if ((Input.GetKeyDown("x") || Input.GetMouseButtonDown(1)) && (abilityObjectList.Count > 0) )
         {
             selectingAbility = true;
             selectedAbilityIndex = (selectedAbilityIndex + 1) % abilityObjectList.Count;

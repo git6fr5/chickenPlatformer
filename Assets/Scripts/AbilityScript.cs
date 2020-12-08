@@ -67,12 +67,10 @@ public class AbilityScript : MonoBehaviour
             if (!alreadyAccquired)
             {
                 hitCharacterScript.abilityObjectList.Add(gameObject);
-                hitCharacterScript.selectedAbilityIndex = hitCharacterScript.selectedAbilityIndex;
-                hitCharacterScript.SelectAbility(hitCharacterScript.selectedAbilityIndex);
                 transform.parent = hitCollider.gameObject.transform;
                 GetComponent<SpriteRenderer>().enabled = false;
-                Destroy(GetComponent<Rigidbody2D>());
-                Destroy(GetComponent<BoxCollider2D>());
+                GetComponent<Rigidbody2D>().simulated = false;
+                GetComponent<BoxCollider2D>().enabled = false;
                 transform.localPosition = new Vector3(0, 0, 0);
             }
             //Destroy(gameObject);
