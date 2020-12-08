@@ -42,8 +42,17 @@ public class ProjectileScript : MonoBehaviour
     {
         Vector2 targetDirection = -((Vector2)abilityScript.casterObject.transform.position - abilityScript.target);
         targetDirection.Normalize();
+        //CasterFaceDirection(targetDirection);
         Rigidbody2D body = GetComponent<Rigidbody2D>();
         body.AddForce(abilityScript.force * targetDirection);
+    }
+
+    void CasterFaceDirection(Vector2 direction)
+    {
+        if (direction.x != 0 && direction.x != Mathf.Sign(abilityScript.casterObject.transform.right.x))
+        {
+            abilityScript.casterObject.GetComponent<CharacterScript>().controller2D.Flip();
+        }
     }
 
 }

@@ -9,7 +9,7 @@ public class CharacterScript : MonoBehaviour
     private string DebugTag = "[MnM CharacterScript]  ";
     private bool DEBUG_status = false;
     private bool DEBUG_motion = false;
-    private bool DEBUG_ability = false;
+    private bool DEBUG_ability = true;
     private bool DEBUG_inventory = true;
 
     public bool Client = false;
@@ -59,12 +59,14 @@ public class CharacterScript : MonoBehaviour
     public List<GameObject> abilityObjectList = new List<GameObject>();
 
     private GameObject selectedAbilityObject;
+    private AbilityScript selectedAbilityScript;
     public int selectedAbilityIndex = 0;
     private bool selectingAbility = false;
 
     private string abilityName;
     private string abilityType;
     private bool abilityIsBuff;
+    private bool abilityIsPassive;
 
     public LayerMask enemyLayer;
     public LayerMask friendlyLayer;
@@ -247,7 +249,12 @@ public class CharacterScript : MonoBehaviour
 
     public void Death()
     {
+        foreach (GameObject _abilityObject in abilityObjectList)
+        {
+            Instantiate(_abilityObject, transform.position, Quaternion.identity);
+        }
         Destroy(gameObject, 0.4f);
+        onDeath = false;
     }
 
     private void AIAggroFlag()
@@ -328,8 +335,11 @@ public class CharacterScript : MonoBehaviour
         {
             //abilityObject = Instantiate(abilityObject, gameObject.transform.position, Quaternion.identity, gameObject.transform);
             abilityName = selectedAbilityObject.name;
-            abilityType = selectedAbilityObject.GetComponent<AbilityScript>().abilityType;
-            abilityIsBuff = selectedAbilityObject.GetComponent<AbilityScript>().isBuff;
+            selectedAbilityScript = selectedAbilityObject.GetComponent<AbilityScript>();
+            abilityType = selectedAbilityScript.abilityType;
+            abilityIsBuff = selectedAbilityScript.isBuff;
+            abilityIsPassive = selectedAbilityScript.isPassive;
+
             if (abilityIsBuff)
             {
                 targetLayer = friendlyLayer;
@@ -338,8 +348,13 @@ public class CharacterScript : MonoBehaviour
             {
                 targetLayer = enemyLayer;
             }
+
             if (DEBUG_ability) { print("Name of active ability is " + abilityName + " which is a " + abilityType + " ability, and it targets the layer " + ((int)targetLayer).ToString()); }
             hasAbility = true;
+        }
+        else
+        {
+            hasAbility = false;
         }
     }
 
@@ -363,12 +378,21 @@ public class CharacterScript : MonoBehaviour
 
     private void AbilityControl()
     {
-        if (hasAbility)
+        if (hasAbility && !(abilityIsPassive))
         {
-            controller2D.Cast(selectedAbilityObject, cast, Camera.main.ScreenToWorldPoint(Input.mousePosition), targetLayer);
+            selectedAbilityScript.Cast(gameObject, cast, Camera.main.ScreenToWorldPoint(Input.mousePosition), targetLayer);
+        }
+        else if (hasAbility && (abilityIsPassive))
+        {
+            selectedAbilityScript.Apply(gameObject, true, targetLayer);
         }
         if (selectingAbility)
         {
+            // when changing abilities, make sure to remove any passive effects
+            if (abilityIsPassive)
+            {
+                selectedAbilityScript.Apply(selectedAbilityObject, false, targetLayer);
+            }
             SelectAbility(selectedAbilityIndex);
             inventoryScript.selectedAbilityImage.sprite = selectedAbilityObject.GetComponent<SpriteRenderer>().sprite;
         }
@@ -393,6 +417,7 @@ public class CharacterScript : MonoBehaviour
 
     private void Inventory()
     {
+        openInventory = true;
         inventoryScript = inventoryObject.GetComponent<InventoryScript>();
     }
 
@@ -410,10 +435,12 @@ public class CharacterScript : MonoBehaviour
     {
         if (openInventory && (!openedInventory))
         {
+            inventoryObject.SetActive(true);
             openedInventory = true;
         }
         else if (!openInventory && (openedInventory))
         {
+            inventoryObject.SetActive(false);
             openedInventory = false;
         }
     }

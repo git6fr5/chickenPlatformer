@@ -15,6 +15,10 @@ public class AbilityScript : MonoBehaviour
     public string abilityType;
     public bool isBuff = false;
 
+    public bool isPassive = false;
+    private bool passiveApplied = false;
+    private GameObject passiveObject;
+
     public float cooldown;
     private float currentCooldown = 0f;
 
@@ -29,6 +33,18 @@ public class AbilityScript : MonoBehaviour
     public GameObject casterObject;
     public Vector2 target;
     public LayerMask targetLayer;
+
+    void FixedUpdate()
+    {
+        if (currentCooldown > 0f)
+        {
+            currentCooldown = currentCooldown - Time.fixedDeltaTime;
+        }
+        else if (currentCooldown <= 0f)
+        {
+            currentCooldown = 0f;
+        }
+    }
 
     void OnCollisionEnter2D(Collision2D hitInfo)
     {
@@ -63,37 +79,49 @@ public class AbilityScript : MonoBehaviour
         }
     }
 
-    public void Cast(GameObject _casterObject, Vector2 _target, LayerMask _targetLayer)
+    // abilities activated by pressing a button
+    public void Cast(GameObject _casterObject, bool cast, Vector2 _target, LayerMask _targetLayer)
     {
-        casterObject = _casterObject;
-        target = _target;
-        targetLayer = _targetLayer;
-
-        if (currentCooldown == 0f)
+        if (cast)
         {
-            if (DEBUG_cast) { print(DebugTag + "Cast Ability successfully"); }
-            if (abilityType == "projectile")
-            {
-                CastProjectile(casterObject, target, targetLayer);
-            }
-            if (abilityType == "point")
-            {
-                CastPoint(casterObject, target, targetLayer);
-            }
+            casterObject = _casterObject;
+            target = _target;
+            targetLayer = _targetLayer;
 
-            currentCooldown = cooldown;
+            if (currentCooldown == 0f)
+            {
+                if (DEBUG_cast) { print(DebugTag + "Cast Ability successfully"); }
+                if (abilityType == "projectile")
+                {
+                    CastProjectile(casterObject, target, targetLayer);
+                }
+                if (abilityType == "point")
+                {
+                    CastPoint(casterObject, target, targetLayer);
+                }
+                if (abilityType == "motion")
+                {
+                    CastMotion(casterObject, target, targetLayer);
+                }
+
+                currentCooldown = cooldown;
+            }
         }
     }
 
-    void FixedUpdate()
+    // abilities that apply an effect when selected
+    public void Apply(GameObject _casterObject, bool apply, LayerMask _targetLayer)
     {
-        if (currentCooldown > 0f)
+        casterObject = _casterObject;
+        targetLayer = _targetLayer;
+
+        if (abilityType == "morph")
         {
-            currentCooldown = currentCooldown - Time.fixedDeltaTime;
+            ApplyMorph(apply);
         }
-        else if (currentCooldown <= 0f)
+        if (abilityType == "aura")
         {
-            currentCooldown = 0f;
+            //
         }
     }
 
@@ -111,5 +139,26 @@ public class AbilityScript : MonoBehaviour
         GameObject pointObject = Instantiate(objectBase, target, Quaternion.identity);
         pointObject.SetActive(true);
         return pointObject;
+    }
+
+    public GameObject CastMotion(GameObject casterObject, Vector2 target, LayerMask targetLayer)
+    {
+        //
+        return casterObject;
+    }
+
+    public void ApplyMorph(bool apply)
+    {
+        if (!passiveApplied)
+        {
+            passiveObject = Instantiate(objectBase, Vector3.zero, Quaternion.identity);
+            passiveObject.SetActive(apply);
+            passiveApplied = true;
+        }
+        else if (passiveApplied && !apply)
+        {
+            Destroy(passiveObject);
+            passiveApplied = false;
+        }
     }
 }
