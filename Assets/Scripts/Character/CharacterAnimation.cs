@@ -33,6 +33,13 @@ public class CharacterAnimation : MonoBehaviour
     private float duration;
     private float elapsedDuration = 0f;
 
+    /*--- Audio ---*/
+
+    public AudioClip hurtAudio;
+    public AudioClip deathAudio;
+
+    public AudioSource audioSource;
+
 
     void Start()
     {
@@ -49,18 +56,35 @@ public class CharacterAnimation : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (overriding)
         {
             //OverrideAnimation();
-            elapsedDuration = elapsedDuration + Time.fixedDeltaTime;
-            OverrideAnimationForDuration(elapsedDuration, duration);
         }
         else
         {
             SetAnimation();
             elapsedDuration = 0;
+        }
+
+        if (!audioSource.isPlaying)
+        {
+            PlaySound();
+        }
+        else
+        {
+            print("sound is being played");
+        }
+        DisableHighPrio();
+    }
+
+    void FixedUpdate()
+    {
+        if (overriding)
+        {
+            elapsedDuration = elapsedDuration + Time.fixedDeltaTime;
+            OverrideAnimationForDuration(elapsedDuration, duration);
         }
     }
 
@@ -75,7 +99,6 @@ public class CharacterAnimation : MonoBehaviour
             /*overriding = true; prev_anim = "bob_hurt_anim";*/
             overriding = true; duration = deathDuration;
             animated = true;
-            death = false;
         }
         else if (hurt && hurtAnim)
         {
@@ -83,7 +106,6 @@ public class CharacterAnimation : MonoBehaviour
             /*overriding = true; prev_anim = "bob_hurt_anim";*/
             overriding = true; duration = hurtDuration;
             animated = true;
-            hurt = false;
         }
 
 
@@ -132,5 +154,35 @@ public class CharacterAnimation : MonoBehaviour
         {
             overriding = false;
         }
+    }
+
+    private void PlaySound()
+    {
+        bool sounded = false;
+
+        /*--- High Priority ---*/
+        print("attempting to play sound");
+        if (death && deathAudio)
+        {
+            audioSource.clip = deathAudio;
+            audioSource.Play();
+            sounded = true;
+        }
+        else if (hurt && hurtAudio)
+        {
+            audioSource.clip = hurtAudio;
+            audioSource.Play();
+            sounded = true;
+        }
+        if (sounded) { return; }
+
+        /*--- Low Priority ---*/
+        return;
+    }
+
+    private void DisableHighPrio()
+    {
+        hurt = false;
+        death = false;
     }
 }

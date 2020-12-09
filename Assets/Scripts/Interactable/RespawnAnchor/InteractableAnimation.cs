@@ -50,13 +50,11 @@ public class InteractableAnimation : MonoBehaviour
         }*/
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (overriding)
         {
             //OverrideAnimation();
-            elapsedDuration = elapsedDuration + Time.fixedDeltaTime;
-            OverrideAnimationForDuration(elapsedDuration, duration);
         }
         else
         {
@@ -73,6 +71,15 @@ public class InteractableAnimation : MonoBehaviour
             print("sound is being played");
         }
         DisableHighPrio();
+    }
+
+    void FixedUpdate()
+    {
+        if (overriding)
+        {
+            elapsedDuration = elapsedDuration + Time.fixedDeltaTime;
+            OverrideAnimationForDuration(elapsedDuration, duration);
+        }
     }
 
     private void SetAnimation()
