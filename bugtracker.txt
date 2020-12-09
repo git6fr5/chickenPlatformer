@@ -1,0 +1,11 @@
+09/12/2020
+Respawning issue causing respawned transform to be set at -5 on the z axis, which then causes artifacting when rotating (as the player transform moves to +5 z which is deeper than the scenery)
+
+Fixed ---
+respawning was being called from an OutOfWorld flag function, which had the wrong vector parameters
+
+09/12/2020
+Jumping causes an on land event to invoke when taking off as well as on landing. This is causing the jumping animation to glitch. Note that this only seems to happen when the player is standing still.
+
+Fixed ---
+Controller was setting the m_Grounded boolean to false when it was called with jump as true. This was wrong as it only needs to add the force when jump is called and then the Collision detection will recognize it has left the ground. Forcing the m_Grounded variable was confusing it and causing it call twice.

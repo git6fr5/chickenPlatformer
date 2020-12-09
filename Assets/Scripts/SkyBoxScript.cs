@@ -8,7 +8,7 @@ public class SkyBoxScript : MonoBehaviour
     /* --- Debug --- */
     private string DebugTag = "[MnM SkyBoxScript]  ";
     private bool DEBUG_time = false;
-    private bool DEBUG_sky = true;
+    private bool DEBUG_sky = false;
 
     /* --- Time --- */
     public float time = 0f; // in seconds

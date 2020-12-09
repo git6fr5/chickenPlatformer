@@ -9,8 +9,8 @@ public class CharacterScript : MonoBehaviour
     private string DebugTag = "[MnM CharacterScript]  ";
     private bool DEBUG_status = false;
     private bool DEBUG_motion = false;
-    private bool DEBUG_ability = true;
-    private bool DEBUG_inventory = true;
+    private bool DEBUG_ability = false;
+    private bool DEBUG_inventory = false;
 
     public bool Client = false;
 
@@ -53,6 +53,7 @@ public class CharacterScript : MonoBehaviour
     float right = 1f;
     bool jump = false;
     bool crouch = false;
+    bool inAir = true;
 
     /* --- Ability --- */
 
@@ -75,9 +76,6 @@ public class CharacterScript : MonoBehaviour
     public LayerMask friendlyLayer;
     private LayerMask targetLayer;
 
-    public CharacterController2D controller2D;
-    public Animator animator;
-
     /*--- Inventory ---*/
 
     public GameObject inventoryObject;
@@ -85,6 +83,11 @@ public class CharacterScript : MonoBehaviour
     bool openInventory = false;
     bool openedInventory = false;
     //float inventoryTime = 0.2f;
+
+    /* --- External Scripts ---*/
+
+    public CharacterController2D controller2D;
+    public CharacterAnimation animation2D;
 
     // Start is called before the first frame update
     void Start()
@@ -139,15 +142,20 @@ public class CharacterScript : MonoBehaviour
     {
         if (tookDamage == true)
         {
-            animator.SetTrigger("hurt");
             Health();
             tookDamage = false;
+            animation2D.hurt = true;
         }
         if (onDeath == true)
         {
-            animator.SetTrigger("dead");
             Death();
+            animation2D.death = true;
         }
+    }
+
+    private void StatusControl()
+    {
+
     }
 
     private void StatusBar()
@@ -316,13 +324,19 @@ public class CharacterScript : MonoBehaviour
         {
             if (DEBUG_motion) { print(DebugTag + "Pressed Jump"); }
             jump = true;
-            //animator.SetBool("isJumping", true);
+            inAir = true;
         }
 
-        if (Input.GetButtonDown("Crouch")) { if (DEBUG_motion) { print(DebugTag + "Pressed Crouch"); } crouch = true; }
-        else if (Input.GetButtonUp("Crouch")) { if (DEBUG_motion) { print(DebugTag + "Released Crouch"); } crouch = false; }
-
-        animator.SetFloat("speed", Mathf.Abs(horizontalMove));
+        if (Input.GetButtonDown("Crouch")) 
+        { 
+            if (DEBUG_motion) { print(DebugTag + "Pressed Crouch"); } 
+            crouch = true;
+        }
+        else if (Input.GetButtonUp("Crouch")) 
+        { 
+            if (DEBUG_motion) { print(DebugTag + "Released Crouch"); } 
+            crouch = false;
+        }
     }
 
     private void MotionControl()
@@ -330,6 +344,10 @@ public class CharacterScript : MonoBehaviour
         if (DEBUG_motion) { print(DebugTag + "Running MotionControl"); }
         controller2D.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
         jump = false;
+
+        animation2D.crouch = crouch;
+        animation2D.x_speed = Mathf.Abs(horizontalMove);
+        animation2D.inAir = inAir;
     }
 
     private void AIMotionControlFlag()
@@ -347,14 +365,12 @@ public class CharacterScript : MonoBehaviour
         {
             horizontalMove = 0f;
         }
-
-
-        animator.SetFloat("speed", Mathf.Abs(horizontalMove));
     }
 
     public void OnLanding()
     {
-        //animator.SetBool("isJumping", false);
+        if (DEBUG_motion) { print(DebugTag + gameObject.name + " landed"); }
+        inAir = false;
     }
 
     /* --- Ability Functions --- */
@@ -406,7 +422,12 @@ public class CharacterScript : MonoBehaviour
                 selectedAbilityIndex = i - 1;
             }
         }
-        if (Input.GetKeyDown("z") || Input.GetMouseButtonDown(0)) { print(DebugTag + "Pressed Cast"); cast = true; }
+        if (Input.GetKeyDown("z") || Input.GetMouseButtonDown(0)) 
+        { 
+            print(DebugTag + "Pressed Cast");
+            enemyDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            cast = true; 
+        }
         if ((Input.GetKeyDown("x") || Input.GetMouseButtonDown(1)) && (abilityObjectList.Count > 0) )
         {
             selectingAbility = true;
@@ -418,7 +439,7 @@ public class CharacterScript : MonoBehaviour
     {
         if (hasAbility && !(abilityIsPassive))
         {
-            selectedAbilityScript.Cast(gameObject, cast, Camera.main.ScreenToWorldPoint(Input.mousePosition), targetLayer);
+            selectedAbilityScript.Cast(gameObject, cast, enemyDirection, targetLayer);
         }
         else if (hasAbility && (abilityIsPassive))
         {
@@ -447,7 +468,7 @@ public class CharacterScript : MonoBehaviour
         {
             cast = false;
         }
-        //animator.SetTrigger("attack");
+        //animation2D.animator.SetTrigger("attack");
     }
 
     /* --- Inventory Functions --- */
@@ -472,6 +493,7 @@ public class CharacterScript : MonoBehaviour
     {
         if (openInventory && (!openedInventory))
         {
+            if (DEBUG_inventory) { print(DebugTag + "opening inventory"); }
             inventoryObject.SetActive(true);
             openedInventory = true;
         }
@@ -487,7 +509,7 @@ public class CharacterScript : MonoBehaviour
         if (transform.position.y < -100)
         {
             //onDeath = true;
-            transform.position = respawnObject.transform.position;
+            transform.position = new Vector3(respawnObject.transform.position.x, respawnObject.transform.position.y, 0);
         }
     }
 }

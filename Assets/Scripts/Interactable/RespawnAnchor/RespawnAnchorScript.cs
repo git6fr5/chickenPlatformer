@@ -11,6 +11,10 @@ public class RespawnAnchorScript : MonoBehaviour
 
     public LayerMask playerLayer;
 
+    /* --- External Scripts ---*/
+
+    public InteractableAnimation animation2D;
+
     /* --- Collision Functions ---*/
 
     void OnTriggerEnter2D(Collider2D hitInfo)
@@ -23,6 +27,7 @@ public class RespawnAnchorScript : MonoBehaviour
         {
             CharacterScript characterScript = hitInfo.gameObject.GetComponent<CharacterScript>();
             characterScript.respawnObject = gameObject;
+            animation2D.active = true; animation2D.activating = true;
         }
     }
 }

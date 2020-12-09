@@ -55,7 +55,6 @@ public class BounceScript : MonoBehaviour
 
     void BouncePoint()
     {
-        print(abilityScript.casterObject);
         Transform groundCheckTransform = abilityScript.casterObject.transform.Find("GroundCheck");
         transform.SetParent(groundCheckTransform);
         transform.localPosition = Vector3.zero;
