@@ -5,7 +5,8 @@ using UnityEngine;
 public class CharacterAnimation : MonoBehaviour
 {
 
-    private bool DEBUG_clips = false;
+    //private bool DEBUG_clips = false;
+    //private bool DEBUG_sound = false;
 
     public AnimationClip idleAnim;
     public AnimationClip runningAnim;
@@ -43,7 +44,7 @@ public class CharacterAnimation : MonoBehaviour
 
     void Start()
     {
-        animatorController = animator.runtimeAnimatorController;
+        /*animatorController = animator.runtimeAnimatorController;
         controllerClips = animatorController.animationClips; // for checking that these 2 are aligned
         animationClips.AddRange(new List<AnimationClip> { idleAnim, runningAnim, jumpingAnim, crouchingAnim, hurtAnim } );
 
@@ -53,7 +54,7 @@ public class CharacterAnimation : MonoBehaviour
             {
                 print(animationClip.name);
             }
-        }
+        }*/
     }
 
     void Update()
@@ -74,7 +75,7 @@ public class CharacterAnimation : MonoBehaviour
         }
         else
         {
-            print("sound is being played");
+            //print("sound is being played");
         }
         DisableHighPrio();
     }
