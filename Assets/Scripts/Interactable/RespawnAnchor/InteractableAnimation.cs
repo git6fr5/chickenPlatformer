@@ -5,7 +5,10 @@ using UnityEngine;
 public class InteractableAnimation : MonoBehaviour
 {
 
-    private bool DEBUG_clips = true;
+    //private bool DEBUG_clips = true;
+    //private bool DEBUG_audio = true;
+
+    /* --- Animation ---*/
 
     public AnimationClip idleAnim;
     public AnimationClip activatingAnim;
@@ -25,10 +28,16 @@ public class InteractableAnimation : MonoBehaviour
     private float duration;
     private float elapsedDuration = 0f;
 
+    /*--- Audio ---*/
+
+    public AudioClip activatingAudio;
+
+    public AudioSource audioSource;
+
 
     void Start()
     {
-        animatorController = animator.runtimeAnimatorController;
+        /*animatorController = animator.runtimeAnimatorController;
         controllerClips = animatorController.animationClips; // for checking that these 2 are aligned
         animationClips.AddRange(new List<AnimationClip> { idleAnim, activatingAnim, activeAnim });
 
@@ -38,7 +47,7 @@ public class InteractableAnimation : MonoBehaviour
             {
                 print(animationClip.name);
             }
-        }
+        }*/
     }
 
     void FixedUpdate()
@@ -54,9 +63,19 @@ public class InteractableAnimation : MonoBehaviour
             SetAnimation();
             elapsedDuration = 0;
         }
+
+        if (!audioSource.isPlaying)
+        {
+            PlaySound();
+        }
+        else
+        {
+            print("sound is being played");
+        }
+        DisableHighPrio();
     }
 
-    public void SetAnimation()
+    private void SetAnimation()
     {
         bool animated = false;
 
@@ -67,7 +86,6 @@ public class InteractableAnimation : MonoBehaviour
             /*overriding = true; prev_anim = "bob_hurt_anim";*/
             overriding = true; duration = activatingDuration;
             animated = true;
-            activating = false;
         }
         if (animated) { return; }
 
@@ -85,11 +103,34 @@ public class InteractableAnimation : MonoBehaviour
         return;
     }
 
-    public void OverrideAnimationForDuration(float elapsedDuration, float duration)
+    private void OverrideAnimationForDuration(float elapsedDuration, float duration)
     {
         if (elapsedDuration > duration)
         {
             overriding = false;
         }
+    }
+
+    private void PlaySound()
+    {
+        bool sounded = false;
+
+        /*--- High Priority ---*/
+        print("attempting to play sound");
+        if (activating && activatingAudio)
+        {
+            audioSource.clip = activatingAudio;
+            audioSource.Play();
+            sounded = true;
+        }
+        if (sounded) { return; }
+
+        /*--- Low Priority ---*/
+        return;
+    }
+
+    private void DisableHighPrio()
+    {
+        activating = false;
     }
 }

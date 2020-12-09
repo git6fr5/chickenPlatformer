@@ -25,9 +25,25 @@ public class RespawnAnchorScript : MonoBehaviour
 
         if (layerMask == playerLayer)
         {
-            CharacterScript characterScript = hitInfo.gameObject.GetComponent<CharacterScript>();
-            characterScript.respawnObject = gameObject;
-            animation2D.active = true; animation2D.activating = true;
+            ResetPreviousRespawnAnchor(hitInfo);
+            SetRespawnAnchor(hitInfo);
+        }
+    }
+
+    public void SetRespawnAnchor(Collider2D hitInfo)
+    {
+        CharacterScript characterScript = hitInfo.gameObject.GetComponent<CharacterScript>();
+        characterScript.respawnObject = gameObject;
+        animation2D.active = true; animation2D.activating = true;
+    }
+
+    public void ResetPreviousRespawnAnchor(Collider2D hitInfo)
+    {
+        CharacterScript characterScript = hitInfo.gameObject.GetComponent<CharacterScript>();
+        if (characterScript.respawnObject) // this should always be true, but just in case
+        {
+            characterScript.respawnObject.GetComponent<RespawnAnchorScript>().animation2D.active = false;
+
         }
     }
 }
