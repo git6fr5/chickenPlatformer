@@ -20,6 +20,9 @@ public class SkyBoxScript : MonoBehaviour
     private int hour;
     private bool day;
 
+    private InventoryScript inventoryScript;
+    public GameObject inventoryObject;
+
     /*--- Sky ---*/
     private SpriteRenderer skySpriteRenderer;
     private float height;
@@ -38,6 +41,9 @@ public class SkyBoxScript : MonoBehaviour
         minute = 0;
         hour = 0;
         dayLength = dayLength / tickRate;
+
+        inventoryScript = inventoryObject.GetComponent<InventoryScript>();
+        inventoryScript.time = new int[] { hour, minute, seconds };
 
         skySpriteRenderer = GetComponent<SpriteRenderer>();
         height = skySpriteRenderer.bounds.size.y;
@@ -59,6 +65,7 @@ public class SkyBoxScript : MonoBehaviour
         minute = (int)Mathf.Floor(time / 60) - (hour*3600);
         seconds = (int)Mathf.Floor(time) - (minute * 60) - (hour * 3600);
         if (DEBUG_time) { print(DebugTag + "In Game Time is " + hour.ToString() + "h:" + minute.ToString() + "m:" + seconds.ToString() + "s"); }
+        inventoryScript.time = new int[] { hour, minute, seconds };
 
         position.y = offSet + (time / dayLength) * height;
         transform.localPosition = position;

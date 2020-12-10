@@ -10,8 +10,16 @@ public class InventoryScript : MonoBehaviour
     public Image selectedAbilityImage;
     public List<Image> inventoryItems = new List<Image>();
 
+    public Text textBox;
+    public int[] time = new int[3];
+
     public void ResetToDefault()
     {
         selectedAbilityImage.sprite = defaultSprite;
+    }
+
+    void FixedUpdate()
+    {
+        textBox.text = time[0].ToString() + ":" + time[1].ToString() + ":" + time[2].ToString();
     }
 }
