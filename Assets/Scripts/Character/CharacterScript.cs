@@ -508,8 +508,14 @@ public class CharacterScript : MonoBehaviour
     {
         if (transform.position.y < -100)
         {
-            //onDeath = true;
-            transform.position = new Vector3(respawnObject.transform.position.x, respawnObject.transform.position.y, 0);
+            if (Client)
+            {
+                transform.position = new Vector3(respawnObject.transform.position.x, respawnObject.transform.position.y, 0);
+            }
+            else
+            {
+                onDeath = true;
+            }
         }
     }
 }
