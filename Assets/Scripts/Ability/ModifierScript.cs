@@ -19,14 +19,6 @@ public class ModifierScript : MonoBehaviour
             BouncePoint();
         }
     }
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        if (root)
-        {
-            //Root();
-        }
-    }
 
     void OnTriggerStay2D(Collider2D hitInfo)
     {
@@ -34,6 +26,11 @@ public class ModifierScript : MonoBehaviour
         if (bounce)
         {
             Bounce();
+        }
+
+        if (root)
+        {
+            Root();
         }
 
         LayerMask layerMask = LayerMask.GetMask(LayerMask.LayerToName(hitInfo.gameObject.layer));
@@ -57,5 +54,11 @@ public class ModifierScript : MonoBehaviour
         Transform groundCheckTransform = abilityScript.casterObject.transform.Find("GroundCheck");
         transform.SetParent(groundCheckTransform);
         transform.localPosition = Vector3.zero;
+    }
+
+    void Root()
+    {
+        Rigidbody2D casterBody = abilityScript.casterObject.GetComponent<Rigidbody2D>();
+        casterBody.constraints = RigidbodyConstraints2D.FreezeAll;
     }
 }

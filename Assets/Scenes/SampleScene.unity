@@ -2889,7 +2889,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 658608293}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.26, y: -16.45, z: 0}
+  m_LocalPosition: {x: -6.4, y: 5.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 967725935}
@@ -4169,8 +4169,8 @@ GameObject:
   - component: {fileID: 967725935}
   - component: {fileID: 967725940}
   - component: {fileID: 967725939}
-  - component: {fileID: 967725936}
   - component: {fileID: 967725937}
+  - component: {fileID: 967725936}
   m_Layer: 0
   m_Name: root
   m_TagString: Untagged
@@ -4201,14 +4201,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 967725934}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f68a5621cf17ecc49abb6b7ef41c4262, type: 3}
+  m_Script: {fileID: 11500000, guid: 92ceeeb0d096ce14a8c2df4f58587301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeTime: 2
-  abilityObject: {fileID: 658608298}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 0
+  abilityObject: {fileID: 658608293}
+  bounce: 0
+  root: 1
 --- !u!61 &967725937
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5382,7 +5380,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1134344001
 Transform:
   m_ObjectHideFlags: 0
@@ -6864,7 +6862,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1618195321
 Transform:
   m_ObjectHideFlags: 0
@@ -8200,7 +8198,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1919314770
 Transform:
   m_ObjectHideFlags: 0
