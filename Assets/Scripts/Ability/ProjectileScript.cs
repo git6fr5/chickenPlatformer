@@ -24,7 +24,9 @@ public class ProjectileScript : MonoBehaviour
     public bool destroyOnGround = false; // these 2 could be enumerated
     public bool stuckOnGround = false;
     private bool isStuck = false;
+
     private float projectileAngle = 0f;
+    private float orientationAngle = 0f;
 
     public GameObject passiveAbilityObject;
     private AbilityScript passiveAbilityScript;
@@ -41,6 +43,8 @@ public class ProjectileScript : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         Destroy(gameObject, lifeTime);
         Fire();
+
+        SetDirection();
     }
 
     void LateUpdate()
@@ -107,17 +111,45 @@ public class ProjectileScript : MonoBehaviour
 
     void FaceDirection()
     {
+        Vector3 direction;
+        Vector3 orientation;
+        float flipVert = 0;
         if (body.velocity.y != 0)
         {
             projectileAngle = Mathf.Atan(body.velocity.y / body.velocity.x) / Mathf.PI * 180;
         }
-        transform.eulerAngles = Vector3.forward * projectileAngle;
+        if (body.velocity.x > 0)
+        {
+            projectileAngle = projectileAngle +180f;
+            //transform.up = -transform.up;
+        }
+        direction = Vector3.forward * projectileAngle;
+        orientation = Vector3.right * orientationAngle; // + Vector3.up * orientationAngle;
+
+        //orientation = Vector3.up * Mathf.Sign(body.velocity.x) * 180;
+        //print(orientation);
+        transform.eulerAngles = direction + orientation;
+        print(orientationAngle);
+
     }
 
     void RotateDirection()
     {
         projectileAngle = projectileAngle + 360 * Time.fixedDeltaTime;
         transform.eulerAngles = Vector3.forward * projectileAngle;
+    }
+
+    void SetDirection()
+    {
+        if (-((Vector2)abilityScript.casterObject.transform.position - abilityScript.target).x > 0)
+        {
+            orientationAngle = 180;
+            //transform.right = transform.right * -1;
+        }
+        else
+        {
+            orientationAngle = 0;
+        }
     }
 
     void CasterFaceDirection(Vector2 direction)

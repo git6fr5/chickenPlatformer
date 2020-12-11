@@ -506,7 +506,7 @@ public class CharacterScript : MonoBehaviour
 
     private void OutOfWorldFlag()
     {
-        if (transform.position.y < -100)
+        if (Mathf.Abs(transform.position.y) > 100)
         {
             if (Client)
             {
