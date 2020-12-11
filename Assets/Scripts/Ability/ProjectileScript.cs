@@ -10,31 +10,73 @@ public class ProjectileScript : MonoBehaviour
     private string DebugTag = "[MnM ProjectileScript]  ";
     private bool DEBUG_collision = false;
     public float lifeTime;
+    public bool linear = true; // these 2 could be enumerated
+    public bool rotate = false;
+    [Range(0, 1)] public float turnRate = 0f;
 
     public GameObject abilityObject;
     private AbilityScript abilityScript;
+    private Vector2 contactAngle;
+    private Vector3 position;
+    private Rigidbody2D body;
+
+    public LayerMask groundLayer;
+    public bool destroyOnGround = false; // these 2 could be enumerated
+    public bool stuckOnGround = false;
+    private bool isStuck = false;
+    private float projectileAngle = 0f;
+
+    public GameObject passiveAbility;
 
     void Start()
     {
         abilityScript = abilityObject.GetComponent<AbilityScript>();
+        body = GetComponent<Rigidbody2D>();
         Destroy(gameObject, lifeTime);
         Fire();
     }
 
+    void LateUpdate()
+    {
+        if (linear)
+        {
+            FaceDirection();
+        }
+        else if (rotate)
+        {
+            RotateDirection();
+        }
+    }
+
     /* --- Collision Functions ---*/
 
-    void OnTriggerEnter2D(Collider2D hitInfo)
+    void OnCollisionEnter2D(Collision2D hitInfo)
     {
-        LayerMask layerMask = LayerMask.GetMask(LayerMask.LayerToName(hitInfo.gameObject.layer));
 
-        if (DEBUG_collision) { print(DebugTag + "Projectile has hit an object in the layer " + layerMask.value.ToString() + " but need the layer " + abilityScript.targetLayer.value.ToString() ); }
+        Collider2D hitObject = hitInfo.collider;
+        print(DebugTag + "The object " + hitInfo.otherCollider.name + " has collided with " + hitObject.name);
+        LayerMask layerMask = LayerMask.GetMask(LayerMask.LayerToName(hitObject.gameObject.layer));
 
-        if (layerMask == abilityScript.targetLayer)
+        if (DEBUG_collision) { print(DebugTag + "Projectile has hit an object in the layer " + layerMask.value.ToString() + " but need the layer " + abilityScript.targetLayer.value.ToString()); }
+
+        if (layerMask == abilityScript.targetLayer && !isStuck)
         {
-            CharacterScript characterScript = hitInfo.gameObject.GetComponent<CharacterScript>();
+            CharacterScript characterScript = hitObject.gameObject.GetComponent<CharacterScript>();
             characterScript.Damage(abilityScript.damageValue, abilityScript.damageType);
 
             Destroy(gameObject);
+        }
+        if (layerMask == groundLayer)
+        {
+            if (destroyOnGround)
+            {
+                Destroy(gameObject);
+            }
+            else if (stuckOnGround)
+            {
+                ContactPoint2D contactPoint = hitInfo.GetContact(hitInfo.contactCount - 1);
+                StickInGround(contactPoint);
+            }
         }
     }
 
@@ -43,8 +85,23 @@ public class ProjectileScript : MonoBehaviour
         Vector2 targetDirection = -((Vector2)abilityScript.casterObject.transform.position - abilityScript.target);
         targetDirection.Normalize();
         //CasterFaceDirection(targetDirection);
-        Rigidbody2D body = GetComponent<Rigidbody2D>();
         body.AddForce(abilityScript.force * targetDirection);
+        transform.right = targetDirection;
+    }
+
+    void FaceDirection()
+    {
+        if (body.velocity.y != 0)
+        {
+            projectileAngle = Mathf.Atan(body.velocity.y / body.velocity.x) / Mathf.PI * 180;
+        }
+        transform.eulerAngles = Vector3.forward * projectileAngle;
+    }
+
+    void RotateDirection()
+    {
+        projectileAngle = projectileAngle + 360 * Time.fixedDeltaTime;
+        transform.eulerAngles = Vector3.forward * projectileAngle;
     }
 
     void CasterFaceDirection(Vector2 direction)
@@ -55,4 +112,9 @@ public class ProjectileScript : MonoBehaviour
         }
     }
 
+    void StickInGround(ContactPoint2D contactPoint)
+    {
+        isStuck = true;
+        body.constraints = RigidbodyConstraints2D.FreezeAll;
+    }
 }
