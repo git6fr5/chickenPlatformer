@@ -44,6 +44,7 @@ public class CharacterScript : MonoBehaviour
     private Vector3 enemyDirection;
 
     public GameObject respawnObject;
+    bool outOfWorld = false;
 
     /* --- Motion --- */
 
@@ -71,10 +72,10 @@ public class CharacterScript : MonoBehaviour
     private string abilityType;
     private bool abilityIsBuff;
     private bool abilityIsPassive;
+    private bool abilityIsAOE;
 
     public LayerMask enemyLayer;
     public LayerMask friendlyLayer;
-    private LayerMask targetLayer;
 
     /*--- Inventory ---*/
 
@@ -130,6 +131,7 @@ public class CharacterScript : MonoBehaviour
     {
         MotionControl();
         AbilityControl();
+        OutOfWorld();
         if (Client)
         {
            InventoryControl();
@@ -260,6 +262,23 @@ public class CharacterScript : MonoBehaviour
         return totalDamage;
     }
 
+    private void AIAggroFlag()
+    {
+        Collider2D[] enemyColliders = Physics2D.OverlapCircleAll(transform.position, aggroRadius, enemyLayer);
+
+        if (enemyColliders.Length > 0)
+        {
+            aggro = true;
+            Collider2D enemyCollider = enemyColliders[0];
+            enemyObject = enemyCollider.gameObject;
+            enemyDirection = (enemyObject.transform.position - transform.position);
+        }
+        else
+        {
+            aggro = false;
+        }
+    }
+
     public void Death()
     {
         foreach (GameObject _abilityObject in abilityObjectList)
@@ -298,20 +317,27 @@ public class CharacterScript : MonoBehaviour
         transform.position = new Vector3(respawnObject.transform.position.x, respawnObject.transform.position.y, 0);
     }
 
-    private void AIAggroFlag()
+    private void OutOfWorldFlag()
     {
-        Collider2D[] enemyColliders = Physics2D.OverlapCircleAll(transform.position, aggroRadius, enemyLayer);
+        outOfWorld = true;
+    }
 
-        if (enemyColliders.Length > 0)
+    private void OutOfWorld()
+    {
+        if (outOfWorld)
         {
-            aggro = true;
-            Collider2D enemyCollider = enemyColliders[0];
-            enemyObject = enemyCollider.gameObject;
-            enemyDirection = (enemyObject.transform.position - transform.position);
-        }
-        else
-        {
-            aggro = false;
+            if (transform.position.y < -100)
+            {
+                if (Client)
+                {
+                    transform.position = new Vector3(respawnObject.transform.position.x, respawnObject.transform.position.y, 0);
+                }
+                else
+                {
+                    onDeath = true;
+                }
+            }
+            outOfWorld = false;
         }
     }
 
@@ -388,21 +414,14 @@ public class CharacterScript : MonoBehaviour
             selectedAbilityScript = selectedAbilityObject.GetComponent<AbilityScript>();
             abilityType = selectedAbilityScript.abilityType;
             abilityIsBuff = selectedAbilityScript.isBuff;
+            abilityIsAOE = selectedAbilityScript.isAOE;
             abilityIsPassive = selectedAbilityScript.isPassive;
 
-            if (abilityIsBuff)
-            {
-                targetLayer = friendlyLayer;
-            }
-            else
-            {
-                targetLayer = enemyLayer;
-            }
             if (Client)
             {
                 inventoryScript.selectedAbilityImage.sprite = selectedAbilityObject.GetComponent<SpriteRenderer>().sprite;
             }
-            if (DEBUG_ability) { print("Name of active ability is " + abilityName + " which is a " + abilityType + " ability, and it targets the layer " + ((int)targetLayer).ToString()); }
+            if (DEBUG_ability) { print("Name of active ability is " + abilityName + " which is a " + abilityType + " ability"); }
             hasAbility = true;
         }
         else
@@ -439,18 +458,18 @@ public class CharacterScript : MonoBehaviour
     {
         if (hasAbility && !(abilityIsPassive))
         {
-            selectedAbilityScript.Cast(gameObject, cast, enemyDirection, targetLayer);
+            selectedAbilityScript.Cast(gameObject, cast, enemyDirection);
         }
         else if (hasAbility && (abilityIsPassive))
         {
-            selectedAbilityScript.Apply(gameObject, true, targetLayer);
+            selectedAbilityScript.Apply(gameObject, true);
         }
         if (selectingAbility)
         {
             // when changing abilities, make sure to remove any passive effects
             if (abilityIsPassive)
             {
-                selectedAbilityScript.Apply(selectedAbilityObject, false, targetLayer);
+                selectedAbilityScript.Apply(selectedAbilityObject, false);
             }
             SelectAbility(selectedAbilityIndex);
         }
@@ -504,18 +523,6 @@ public class CharacterScript : MonoBehaviour
         }
     }
 
-    private void OutOfWorldFlag()
-    {
-        if (transform.position.y < -100)
-        {
-            if (Client)
-            {
-                transform.position = new Vector3(respawnObject.transform.position.x, respawnObject.transform.position.y, 0);
-            }
-            else
-            {
-                onDeath = true;
-            }
-        }
-    }
+    /* --- Modifier Functions --- */
+
 }

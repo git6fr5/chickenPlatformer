@@ -68,7 +68,7 @@ public class InteractableAnimation : MonoBehaviour
         }
         else
         {
-            print("sound is being played");
+
         }
         DisableHighPrio();
     }
@@ -123,7 +123,6 @@ public class InteractableAnimation : MonoBehaviour
         bool sounded = false;
 
         /*--- High Priority ---*/
-        print("attempting to play sound");
         if (activating && activatingAudio)
         {
             audioSource.clip = activatingAudio;

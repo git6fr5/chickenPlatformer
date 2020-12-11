@@ -12,7 +12,6 @@ public class LeafScript : MonoBehaviour
     public float lifeTime;
     public bool linear = true; 
     public bool rotate = false;
-    public bool destroyOnGround = false;
     [Range(0, 1)] public float turnRate = 0f;
 
     public GameObject abilityObject;
@@ -22,7 +21,9 @@ public class LeafScript : MonoBehaviour
     private Rigidbody2D body;
 
     public LayerMask groundLayer;
-    private bool stuckBool = false;
+    public bool destroyOnGround = false;
+    public bool stuckOnGround = false;
+    private bool isStuck = false;
     private float projectileAngle = 0f;
 
     void Start()
@@ -56,7 +57,7 @@ public class LeafScript : MonoBehaviour
 
         if (DEBUG_collision) { print(DebugTag + "Projectile has hit an object in the layer " + layerMask.value.ToString() + " but need the layer " + abilityScript.targetLayer.value.ToString()); }
 
-        if (layerMask == abilityScript.targetLayer && !stuckBool)
+        if (layerMask == abilityScript.targetLayer && !isStuck)
         {
             CharacterScript characterScript = hitObject.gameObject.GetComponent<CharacterScript>();
             characterScript.Damage(abilityScript.damageValue, abilityScript.damageType);
@@ -68,6 +69,10 @@ public class LeafScript : MonoBehaviour
             if (destroyOnGround)
             {
                 Destroy(gameObject);
+            }
+            else if (stuckOnGround)
+            {
+                StickInGround();
             }
         }
     }
@@ -102,5 +107,10 @@ public class LeafScript : MonoBehaviour
         {
             abilityScript.casterObject.GetComponent<CharacterScript>().controller2D.Flip();
         }
+    }
+
+    void StickInGround()
+    {
+        isStuck = true;
     }
 }

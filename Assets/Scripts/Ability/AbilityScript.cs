@@ -6,7 +6,7 @@ public class AbilityScript : MonoBehaviour
 {
     /* --- Debug --- */
     private string DebugTag = "[MnM AbilityScript]  ";
-    private bool DEBUG_cast = false;
+    //private bool DEBUG_cast = false;
     private bool DEBUG_collision = false;
 
     /* --- Parameters ---*/
@@ -14,6 +14,7 @@ public class AbilityScript : MonoBehaviour
 
     public string abilityType;
     public bool isBuff = false;
+    public bool isAOE = false;
 
     public bool isPassive = false;
     private bool passiveApplied = false;
@@ -30,11 +31,22 @@ public class AbilityScript : MonoBehaviour
     public float damageValue;
     public string damageType;
 
-    public GameObject casterObject;
-    public Vector2 target;
-    public LayerMask targetLayer;
+    [HideInInspector] public GameObject casterObject;
+    [HideInInspector] public Vector2 target;
+    [HideInInspector] public LayerMask targetLayer;
 
     void FixedUpdate()
+    {
+        CheckCooldown();
+    }
+
+    void OnCollisionEnter2D(Collision2D hitInfo)
+    {
+        CollectAbility(hitInfo);
+            
+    }
+
+    void CheckCooldown()
     {
         if (currentCooldown > 0f)
         {
@@ -46,7 +58,9 @@ public class AbilityScript : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D hitInfo)
+    /* --- Ability Box Functions --- */
+
+    void CollectAbility(Collision2D hitInfo)
     {
         Collider2D hitCollider = hitInfo.collider;
         if (DEBUG_collision) { print(DebugTag + "The object " + hitInfo.otherCollider.name + " has collided with " + hitCollider.name); }
@@ -58,7 +72,7 @@ public class AbilityScript : MonoBehaviour
             bool alreadyAccquired = false;
             foreach (GameObject abilityObject in hitCharacterScript.abilityObjectList)
             {
-                if(abilityObject.name == name)
+                if (abilityObject.name == name)
                 {
                     alreadyAccquired = true;
                     break;
@@ -77,76 +91,32 @@ public class AbilityScript : MonoBehaviour
         }
     }
 
-    // abilities activated by pressing a button
-    public void Cast(GameObject _casterObject, bool cast, Vector2 _target, LayerMask _targetLayer)
+    // abilities are cast by pressing a button
+    public void Cast(GameObject _casterObject, bool cast, Vector2 _target)
     {
         if (cast)
         {
             casterObject = _casterObject;
             target = _target;
-            targetLayer = _targetLayer;
+            GetTargetLayer();
 
             if (currentCooldown == 0f)
             {
-                if (DEBUG_cast) { print(DebugTag + "Cast Ability successfully"); }
-                if (abilityType == "projectile")
-                {
-                    CastProjectile(casterObject, target, targetLayer);
-                }
-                if (abilityType == "point")
-                {
-                    CastPoint(casterObject, target, targetLayer);
-                }
-                if (abilityType == "motion")
-                {
-                    CastMotion(casterObject, target, targetLayer);
-                }
-
+                Vector2 targetDirection = -((Vector2)casterObject.transform.position - target);
+                targetDirection.Normalize();
+                GameObject projectileObject = Instantiate(objectBase, casterObject.transform.position + (Vector3)targetDirection, Quaternion.identity);
+                projectileObject.SetActive(true);
                 currentCooldown = cooldown;
             }
         }
     }
 
     // abilities that apply an effect when selected
-    public void Apply(GameObject _casterObject, bool apply, LayerMask _targetLayer)
+    public void Apply(GameObject _casterObject, bool apply)
     {
         casterObject = _casterObject;
-        targetLayer = _targetLayer;
+        GetTargetLayer();
 
-        if (abilityType == "morph")
-        {
-            ApplyMorph(apply);
-        }
-        if (abilityType == "aura")
-        {
-            //
-        }
-    }
-
-    public GameObject CastProjectile(GameObject casterObject, Vector2 target, LayerMask targetLayer)
-    {
-        Vector2 targetDirection = -((Vector2)casterObject.transform.position - target);
-        targetDirection.Normalize();
-        GameObject projectileObject = Instantiate(objectBase, casterObject.transform.position + (Vector3)targetDirection, Quaternion.identity);
-        projectileObject.SetActive(true);
-        return projectileObject;
-    }
-
-    public GameObject CastPoint(GameObject casterObject, Vector2 target, LayerMask targetLayer)
-    {
-        GameObject pointObject = Instantiate(objectBase, target, Quaternion.identity);
-        pointObject.SetActive(true);
-        return pointObject;
-    }
-
-    public GameObject CastMotion(GameObject casterObject, Vector2 target, LayerMask targetLayer)
-    {
-        //
-        return casterObject;
-    }
-
-    public void ApplyMorph(bool apply)
-    {
         if (!passiveApplied)
         {
             passiveObject = Instantiate(objectBase, Vector3.zero, Quaternion.identity);
@@ -159,4 +129,18 @@ public class AbilityScript : MonoBehaviour
             passiveApplied = false;
         }
     }
+
+    void GetTargetLayer()
+    {
+        print(casterObject.GetComponent<CharacterScript>().friendlyLayer.value);
+        if (isBuff)
+        {
+            targetLayer = casterObject.GetComponent<CharacterScript>().friendlyLayer;
+        }
+        else
+        {
+            targetLayer = casterObject.GetComponent<CharacterScript>().enemyLayer;
+        }
+    }
+        
 }

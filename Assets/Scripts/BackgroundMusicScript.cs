@@ -40,7 +40,7 @@ public class BackgroundMusicScript : MonoBehaviour
         }
         else
         {
-            print("sound is being played");
+
         }
     }
 
@@ -49,7 +49,6 @@ public class BackgroundMusicScript : MonoBehaviour
         bool sounded = false;
 
         /*--- High Priority ---*/
-        print("attempting to play sound");
         if (intense && intenseMusic)
         {
             audioSource.clip = intenseMusic;
