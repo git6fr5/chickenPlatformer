@@ -26,11 +26,18 @@ public class ProjectileScript : MonoBehaviour
     private bool isStuck = false;
     private float projectileAngle = 0f;
 
-    public GameObject passiveAbility;
+    public GameObject passiveAbilityObject;
+    private AbilityScript passiveAbilityScript;
 
     void Start()
     {
         abilityScript = abilityObject.GetComponent<AbilityScript>();
+        if (passiveAbilityObject)
+        {
+            print("has a passive ability");
+            passiveAbilityScript = passiveAbilityObject.GetComponent<AbilityScript>();
+        }
+
         body = GetComponent<Rigidbody2D>();
         Destroy(gameObject, lifeTime);
         Fire();
@@ -54,7 +61,7 @@ public class ProjectileScript : MonoBehaviour
     {
 
         Collider2D hitObject = hitInfo.collider;
-        print(DebugTag + "The object " + hitInfo.otherCollider.name + " has collided with " + hitObject.name);
+        //print(DebugTag + "The object " + hitInfo.otherCollider.name + " has collided with " + hitObject.name);
         LayerMask layerMask = LayerMask.GetMask(LayerMask.LayerToName(hitObject.gameObject.layer));
 
         if (DEBUG_collision) { print(DebugTag + "Projectile has hit an object in the layer " + layerMask.value.ToString() + " but need the layer " + abilityScript.targetLayer.value.ToString()); }
@@ -68,6 +75,14 @@ public class ProjectileScript : MonoBehaviour
         }
         if (layerMask == groundLayer)
         {
+            if (passiveAbilityObject)
+            {
+                if (passiveAbilityScript.isPassive)
+                {
+                    print("attempting to cast root from bow");
+                    passiveAbilityScript.Apply(gameObject, true, abilityScript.targetLayer);
+                }
+            }
             if (destroyOnGround)
             {
                 Destroy(gameObject);
@@ -76,6 +91,7 @@ public class ProjectileScript : MonoBehaviour
             {
                 ContactPoint2D contactPoint = hitInfo.GetContact(hitInfo.contactCount - 1);
                 StickInGround(contactPoint);
+                rotate = false;
             }
         }
     }

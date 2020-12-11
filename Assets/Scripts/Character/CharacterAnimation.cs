@@ -162,7 +162,7 @@ public class CharacterAnimation : MonoBehaviour
         bool sounded = false;
 
         /*--- High Priority ---*/
-        print("attempting to play sound");
+        //print("attempting to play sound");
         if (death && deathAudio)
         {
             audioSource.clip = deathAudio;

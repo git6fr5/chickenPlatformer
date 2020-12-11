@@ -370,7 +370,7 @@ MonoBehaviour:
     m_Bits: 1024
   destroyOnGround: 0
   stuckOnGround: 1
-  passiveAbility: {fileID: 0}
+  passiveAbilityObject: {fileID: 0}
 --- !u!50 &117082905
 Rigidbody2D:
   serializedVersion: 4
@@ -2889,7 +2889,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 658608293}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.4, y: 5.4, z: 0}
+  m_LocalPosition: {x: -1.85, y: -13.57, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 967725935}
@@ -3009,15 +3009,15 @@ MonoBehaviour:
   collectorLayer:
     serializedVersion: 2
     m_Bits: 256
-  abilityType: point
+  abilityType: modifier
   isBuff: 0
   isAOE: 0
-  isPassive: 0
+  isPassive: 1
   cooldown: 0
   objectBase: {fileID: 967725934}
-  force: 1000
-  radius: 1
-  damageValue: 0.5
+  force: 0
+  radius: 0
+  damageValue: 1
   damageType: mechanical
   casterObject: {fileID: 0}
   target: {x: 0, y: 0}
@@ -4204,6 +4204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ceeeb0d096ce14a8c2df4f58587301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifeTime: 4
   abilityObject: {fileID: 658608293}
   bounce: 0
   root: 1
@@ -4217,7 +4218,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.028887033, y: -0.22141552}
@@ -4879,7 +4880,7 @@ MonoBehaviour:
     m_Bits: 1024
   destroyOnGround: 1
   stuckOnGround: 0
-  passiveAbility: {fileID: 658608293}
+  passiveAbilityObject: {fileID: 658608293}
 --- !u!61 &1041300747
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5253,6 +5254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ceeeb0d096ce14a8c2df4f58587301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifeTime: -1
   abilityObject: {fileID: 1060293698}
   bounce: 1
   root: 0
@@ -5380,7 +5382,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1134344001
 Transform:
   m_ObjectHideFlags: 0
@@ -5389,7 +5391,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1134344000}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.5, y: 3.8, z: 0}
+  m_LocalPosition: {x: -3.4, y: -15.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1041300745}
@@ -6084,7 +6086,7 @@ MonoBehaviour:
     m_Bits: 1024
   destroyOnGround: 0
   stuckOnGround: 0
-  passiveAbility: {fileID: 0}
+  passiveAbilityObject: {fileID: 0}
 --- !u!1 &1340429892
 GameObject:
   m_ObjectHideFlags: 0
@@ -6862,7 +6864,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1618195321
 Transform:
   m_ObjectHideFlags: 0
@@ -9541,4 +9543,4 @@ MonoBehaviour:
     m_Bits: 1024
   destroyOnGround: 0
   stuckOnGround: 0
-  passiveAbility: {fileID: 0}
+  passiveAbilityObject: {fileID: 0}
