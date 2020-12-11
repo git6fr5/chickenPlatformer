@@ -1290,7 +1290,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 214300703}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.8, y: 0, z: 0}
+  m_LocalPosition: {x: -0.8, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1769607354}
@@ -2416,7 +2416,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.8, y: 9.7, z: -10}
+  m_LocalPosition: {x: 63.53, y: 9.7, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1183773103}
@@ -2817,7 +2817,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 605263155}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.8, y: 9.7, z: 0}
+  m_LocalPosition: {x: 63.53, y: 9.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 780445712}
@@ -10002,10 +10002,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 6b1692c38a79ca041a757f6254d4d097, type: 3}
   - {fileID: 21300000, guid: dfe4a1a1e31787e448d249c5d2ed9b6b, type: 3}
   spriteObject: {fileID: 1187244240}
-  aggroRadius: 10
+  aggroRadius: 20
   attackRange: 5
   respawnObject: {fileID: 0}
-  runSpeed: 25
+  runSpeed: 7
   abilityObjectList:
   - {fileID: 1134344000}
   selectedAbilityIndex: 0

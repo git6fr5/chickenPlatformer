@@ -118,9 +118,9 @@ public class ProjectileScript : MonoBehaviour
         {
             projectileAngle = Mathf.Atan(body.velocity.y / body.velocity.x) / Mathf.PI * 180;
         }
-        if (body.velocity.x > 0)
+        if (body.velocity.x < 0)
         {
-            projectileAngle = projectileAngle +180f;
+            projectileAngle = 180f - projectileAngle ;
             //transform.up = -transform.up;
         }
         direction = Vector3.forward * projectileAngle;
@@ -141,7 +141,7 @@ public class ProjectileScript : MonoBehaviour
 
     void SetDirection()
     {
-        if (-((Vector2)abilityScript.casterObject.transform.position - abilityScript.target).x > 0)
+        if (-((Vector2)abilityScript.casterObject.transform.position - abilityScript.target).x < 0)
         {
             orientationAngle = 180;
             //transform.right = transform.right * -1;
