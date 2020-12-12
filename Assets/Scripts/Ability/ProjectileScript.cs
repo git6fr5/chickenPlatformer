@@ -118,12 +118,7 @@ public class ProjectileScript : MonoBehaviour
         }
         if (body.velocity.x < 0)
         {
-<<<<<<< Updated upstream
             projectileAngle = 180f - projectileAngle;
-            //transform.up = -transform.up;
-=======
-            projectileAngle = 180f - projectileAngle ;
->>>>>>> Stashed changes
         }
         
         direction = Vector3.forward * projectileAngle;

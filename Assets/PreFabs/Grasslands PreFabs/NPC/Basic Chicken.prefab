@@ -688,7 +688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idleAnim: {fileID: 7400000, guid: 10dca1221b6b53b40bc4db94f6287a36, type: 2}
-  runningAnim: {fileID: 7400000, guid: bb5ead651895a8b4e85dabcdfaa65898, type: 2}
+  runningAnim: {fileID: 0}
   jumpingAnim: {fileID: 0}
   crouchingAnim: {fileID: 0}
   hurtAnim: {fileID: 0}

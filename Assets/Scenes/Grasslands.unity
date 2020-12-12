@@ -2729,5 +2729,9 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3792554013584642541, guid: e5e333c84397314499f4f68ba146f5bb, type: 3}
+      propertyPath: idleAnim
+      value: 
+      objectReference: {fileID: 7400000, guid: d06509a6356692c4281137a7d6e5f405, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5e333c84397314499f4f68ba146f5bb, type: 3}
