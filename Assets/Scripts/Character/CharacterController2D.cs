@@ -11,11 +11,15 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] public LayerMask m_WhatIsGround;                          // A mask determining what is ground to the character
 	[SerializeField] public Transform m_GroundCheck;                           // A position marking where to check if the player is grounded.
 	[SerializeField] public Transform m_CeilingCheck;                          // A position marking where to check for ceilings
+	//[SerializeField] public Transform m_FallCheck;								// A position marking where to check for the end of ground
+
 	[SerializeField] public Collider2D m_CrouchDisableCollider;                // A collider that will be disabled when crouching
 
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 	private bool m_Grounded;            // Whether or not the player is grounded.
 	const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
+	//const float k_FallRadius = .2f; // Radius of the overlap circle to determine if there is ground to walk towards
+
 	private Rigidbody2D m_Rigidbody2D;
 	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 	private Vector3 m_Velocity = Vector3.zero;
@@ -69,6 +73,15 @@ public class CharacterController2D : MonoBehaviour
 
 	public void Move(float move, bool crouch, bool jump)
 	{
+
+		/*if (m_FallCheck)
+        {
+			if (!Physics2D.OverlapCircle(m_FallCheck.position, k_FallRadius, m_WhatIsGround))
+            {
+				return;
+            }
+		}*/
+
 		// If crouching, check to see if the character can stand up
 		if (!crouch)
 		{

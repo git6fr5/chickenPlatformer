@@ -55,6 +55,8 @@ public class CharacterScript : MonoBehaviour
     bool crouch = false;
     bool inAir = true;
 
+    public GameObject fallCheck;
+
     /* --- Ability --- */
 
     bool cast = false;
@@ -460,7 +462,7 @@ public class CharacterScript : MonoBehaviour
 
     private void AIAbilityControlFlag()
     {
-        if (aggro)
+        if (aggro && (Vector3.Distance(transform.position, enemyObject.transform.position) < attackRange))
         {
             cast = true;
         }
