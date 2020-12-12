@@ -130,6 +130,7 @@ public class CharacterScript : MonoBehaviour
 
     void FixedUpdate()
     {
+        //print("calling fixed update");
         MotionControl();
         AbilityControl();
         if (Client)
@@ -439,8 +440,13 @@ public class CharacterScript : MonoBehaviour
 
     private void AbilityControl()
     {
+        if (!Client)
+        {
+            print(hasAbility.ToString() + ", " + abilityIsPassive.ToString());
+        }
         if (hasAbility && !(abilityIsPassive))
         {
+            print("casting my ability, " + selectedAbilityObject.name);
             selectedAbilityScript.Cast(gameObject, cast, enemyDirection, targetLayer);
         }
         else if (hasAbility && (abilityIsPassive))
@@ -464,6 +470,7 @@ public class CharacterScript : MonoBehaviour
     {
         if (aggro && (Vector3.Distance(transform.position, enemyObject.transform.position) < attackRange))
         {
+            print("trying to attack");
             cast = true;
         }
         else

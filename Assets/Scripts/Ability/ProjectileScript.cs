@@ -28,16 +28,18 @@ public class ProjectileScript : MonoBehaviour
     private float projectileAngle = 0f;
     private float orientationAngle = 0f;
 
-    public GameObject passiveAbilityObject;
+    public GameObject passiveAbilityObjectBase;
+    private GameObject passiveAbilityObject;
     private AbilityScript passiveAbilityScript;
 
     void Start()
     {
         abilityScript = abilityObject.GetComponent<AbilityScript>();
-        if (passiveAbilityObject)
+        if (passiveAbilityObjectBase)
         {
             print("has a passive ability");
-            passiveAbilityScript = passiveAbilityObject.GetComponent<AbilityScript>();
+            //passiveAbilityObject = Instantiate(passiveAbilityObjectBase, transform.position, Quaternion.identity, transform);
+            passiveAbilityScript = passiveAbilityObjectBase.GetComponent<AbilityScript>();
         }
 
         body = GetComponent<Rigidbody2D>();
@@ -79,11 +81,11 @@ public class ProjectileScript : MonoBehaviour
         }
         if (layerMask == groundLayer)
         {
-            if (passiveAbilityObject)
+            if (passiveAbilityObjectBase)
             {
                 if (passiveAbilityScript.isPassive)
                 {
-                    print("attempting to cast root from bow");
+                    print("attempting to cast root from seed");
                     passiveAbilityScript.Apply(gameObject, true, abilityScript.targetLayer);
                 }
             }
