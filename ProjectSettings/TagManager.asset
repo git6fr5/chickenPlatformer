@@ -10,6 +10,7 @@ TagManager:
   - Terrain
   - Platform
   - Scenery
+  - Modifier
   layers:
   - Default
   - TransparentFX
