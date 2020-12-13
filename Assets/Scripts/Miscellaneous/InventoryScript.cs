@@ -13,13 +13,21 @@ public class InventoryScript : MonoBehaviour
     public Text textBox;
     public int[] time = new int[3];
 
+    private float elapsedTime = 0;
+
     public void ResetToDefault()
     {
         selectedAbilityImage.sprite = defaultSprite;
     }
 
+    void Update()
+    {
+        textBox.text = ((int)(elapsedTime % 60)).ToString();
+    }
+
     void FixedUpdate()
     {
-        textBox.text = time[0].ToString() + ":" + time[1].ToString() + ":" + time[2].ToString();
+        elapsedTime = elapsedTime + Time.fixedDeltaTime;
+        //textBox.text = time[0].ToString() + ":" + time[1].ToString() + ":" + time[2].ToString();
     }
 }

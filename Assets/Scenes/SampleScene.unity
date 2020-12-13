@@ -3949,10 +3949,12 @@ GameObject:
   - component: {fileID: 728092866}
   - component: {fileID: 728092865}
   - component: {fileID: 728092864}
+  - component: {fileID: 728092867}
   - component: {fileID: 728092863}
   - component: {fileID: 728092861}
   - component: {fileID: 728092860}
   - component: {fileID: 728092859}
+  - component: {fileID: 728092862}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -4096,6 +4098,24 @@ MonoBehaviour:
   activatingDuration: 0
   activatingAudio: {fileID: 0}
   audioSource: {fileID: 728092859}
+--- !u!114 &728092862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728092858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1ee5bf911125554081195b5a91184d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  isRespawnAnchor: 0
+  isCoin: 1
+  animation2D: {fileID: 728092861}
 --- !u!50 &728092863
 Rigidbody2D:
   serializedVersion: 4
@@ -4208,6 +4228,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &728092867
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728092858}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.5, y: 0.5}
+    newSize: {x: 1.625, y: 3.6875}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.39727306, y: 0.42781156}
+  m_EdgeRadius: 0
 --- !u!1 &776849678
 GameObject:
   m_ObjectHideFlags: 0
@@ -4358,6 +4404,8 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
+  isRespawnAnchor: 1
+  isCoin: 0
   animation2D: {fileID: 776849684}
 --- !u!114 &776849684
 MonoBehaviour:
@@ -8999,6 +9047,8 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
+  isRespawnAnchor: 1
+  isCoin: 0
   animation2D: {fileID: 1863857497}
 --- !u!50 &1863857493
 Rigidbody2D:
@@ -10515,6 +10565,8 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
+  isRespawnAnchor: 1
+  isCoin: 0
   animation2D: {fileID: 1936361433}
 --- !u!50 &1936361429
 Rigidbody2D:

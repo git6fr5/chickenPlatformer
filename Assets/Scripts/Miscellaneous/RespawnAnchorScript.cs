@@ -11,6 +11,9 @@ public class RespawnAnchorScript : MonoBehaviour
 
     public LayerMask playerLayer;
 
+    public bool isRespawnAnchor;
+    public bool isCoin;
+
     /* --- External Scripts ---*/
 
     public InteractableAnimation animation2D;
@@ -25,8 +28,15 @@ public class RespawnAnchorScript : MonoBehaviour
 
         if (layerMask == playerLayer)
         {
-            ResetPreviousRespawnAnchor(hitInfo);
-            SetRespawnAnchor(hitInfo);
+            if (isRespawnAnchor)
+            {
+                ResetPreviousRespawnAnchor(hitInfo);
+                SetRespawnAnchor(hitInfo);
+            }
+            else if (isCoin)
+            {
+                CollectCoin(hitInfo);
+            }
         }
     }
 
@@ -48,5 +58,12 @@ public class RespawnAnchorScript : MonoBehaviour
             characterScript.respawnObject.GetComponent<RespawnAnchorScript>().animation2D.active = false;
 
         }
+    }
+
+    public void CollectCoin(Collider2D hitInfo)
+    {
+        CharacterScript characterScript = hitInfo.gameObject.GetComponent<CharacterScript>();
+        characterScript.coins = characterScript.coins + 1;
+        Destroy(gameObject);
     }
 }

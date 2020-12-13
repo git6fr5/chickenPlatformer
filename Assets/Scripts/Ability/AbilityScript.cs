@@ -85,6 +85,7 @@ public class AbilityScript : MonoBehaviour
                     break;
                 }
             }
+
             if (!alreadyAccquired)
             {
                 hitCharacterScript.abilityObjectList.Add(gameObject);
@@ -94,7 +95,10 @@ public class AbilityScript : MonoBehaviour
                 GetComponent<BoxCollider2D>().enabled = false;
                 transform.localPosition = new Vector3(0, 0, 0);
             }
-            //Destroy(gameObject);
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
