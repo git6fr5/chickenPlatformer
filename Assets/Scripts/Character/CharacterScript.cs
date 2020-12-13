@@ -10,7 +10,7 @@ public class CharacterScript : MonoBehaviour
     private bool DEBUG_status = false;
     private bool DEBUG_motion = false;
     private bool DEBUG_ability = false;
-    private bool DEBUG_inventory = false;
+    //private bool DEBUG_inventory = false;
 
     public bool Client = false;
 
