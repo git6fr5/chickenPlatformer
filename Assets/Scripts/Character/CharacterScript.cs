@@ -80,6 +80,9 @@ public class CharacterScript : MonoBehaviour
 
     /*--- Inventory ---*/
 
+    public int coins = 0;
+    public GameObject coinObject;
+
     public GameObject inventoryObject;
     private InventoryScript inventoryScript;
     bool openInventory = false;
@@ -280,6 +283,7 @@ public class CharacterScript : MonoBehaviour
         }
         else
         {
+            DropCoins();
             Destroy(gameObject, 0.4f);
         }
         onDeath = false;
@@ -299,6 +303,14 @@ public class CharacterScript : MonoBehaviour
         SelectAbility(0);
 
         transform.position = new Vector3(respawnObject.transform.position.x, respawnObject.transform.position.y, 0);
+    }
+
+    private void DropCoins()
+    {
+        for (int i = 0; i<coins; i++)
+        {
+            Instantiate(coinObject, transform.position, Quaternion.identity);
+        }
     }
 
     private void AIAggroFlag()
