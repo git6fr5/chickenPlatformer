@@ -70,14 +70,14 @@ public class ModifierScript : MonoBehaviour
 
     void Bounce(Collider2D hitInfo)
     {
-        if (LayerMask.LayerToName(hitInfo.gameObject.layer) == "Ground")
+
+        LayerMask layerMask = LayerMask.GetMask(LayerMask.LayerToName(hitInfo.gameObject.layer));
+
+        if (LayerMask.LayerToName(hitInfo.gameObject.layer) == "Ground" || layerMask == abilityScript.targetLayer)
         {
             Rigidbody2D casterBody = abilityScript.casterObject.GetComponent<Rigidbody2D>();
             casterBody.AddForce(new Vector2(0f, abilityScript.force));
         }
-
-        LayerMask layerMask = LayerMask.GetMask(LayerMask.LayerToName(hitInfo.gameObject.layer));
-
         if (layerMask == abilityScript.targetLayer )
         {
             CharacterScript characterScript = hitInfo.gameObject.GetComponent<CharacterScript>();

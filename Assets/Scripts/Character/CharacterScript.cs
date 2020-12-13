@@ -86,7 +86,6 @@ public class CharacterScript : MonoBehaviour
     public GameObject inventoryObject;
     private InventoryScript inventoryScript;
     bool openInventory = false;
-    bool openedInventory = false;
     //float inventoryTime = 0.2f;
 
     /* --- External Scripts ---*/
@@ -452,13 +451,8 @@ public class CharacterScript : MonoBehaviour
 
     private void AbilityControl()
     {
-        if (!Client)
-        {
-            print(hasAbility.ToString() + ", " + abilityIsPassive.ToString());
-        }
         if (hasAbility && !(abilityIsPassive))
         {
-            print("casting my ability, " + selectedAbilityObject.name);
             selectedAbilityScript.Cast(gameObject, cast, enemyDirection, targetLayer);
         }
         else if (hasAbility && (abilityIsPassive))
@@ -482,7 +476,6 @@ public class CharacterScript : MonoBehaviour
     {
         if (aggro && (Vector3.Distance(transform.position, enemyObject.transform.position) < attackRange))
         {
-            print("trying to attack");
             cast = true;
         }
         else
@@ -496,7 +489,7 @@ public class CharacterScript : MonoBehaviour
 
     private void Inventory()
     {
-        openInventory = true;
+        inventoryObject.SetActive(true);
         inventoryScript = inventoryObject.GetComponent<InventoryScript>();
     }
 
@@ -512,17 +505,15 @@ public class CharacterScript : MonoBehaviour
 
     private void InventoryControl()
     {
-        if (openInventory && (!openedInventory))
+        /*if (openInventory && (!inventoryScript.isOpened))
         {
             if (DEBUG_inventory) { print(DebugTag + "opening inventory"); }
-            inventoryObject.SetActive(true);
-            openedInventory = true;
+            inventoryScript.Open(gameObject);
         }
-        else if (!openInventory && (openedInventory))
+        else if (!openInventory && (inventoryScript.isOpened))
         {
-            inventoryObject.SetActive(false);
-            openedInventory = false;
-        }
+            inventoryScript.Close();
+        }*/
     }
 
     private void OutOfWorldFlag()

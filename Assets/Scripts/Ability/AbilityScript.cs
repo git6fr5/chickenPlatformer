@@ -35,14 +35,8 @@ public class AbilityScript : MonoBehaviour
     [HideInInspector] public Vector2 target;
     [HideInInspector] public LayerMask targetLayer;
 
-    void Update()
-    {
-        print("calling update");
-    }
-
     void FixedUpdate()
     {
-        print("calling fixed update");
         CheckCooldown();
     }
 
@@ -54,7 +48,6 @@ public class AbilityScript : MonoBehaviour
 
     void CheckCooldown()
     {
-        print(currentCooldown);
         if (currentCooldown > 0f)
         {
             currentCooldown = currentCooldown - Time.fixedDeltaTime;
@@ -105,7 +98,6 @@ public class AbilityScript : MonoBehaviour
     // abilities are cast by pressing a button
     public void Cast(GameObject _casterObject, bool cast, Vector2 _target, LayerMask _targetLayer)
     {
-        print(_casterObject.name);
         if (cast)
         {
             casterObject = _casterObject;
