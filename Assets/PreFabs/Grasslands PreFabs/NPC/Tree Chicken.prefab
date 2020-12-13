@@ -831,7 +831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ceeeb0d096ce14a8c2df4f58587301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeTime: 4
+  lifeTime: 2
   abilityObject: {fileID: 3927780147072950001}
   bounce: 0
   root: 1
@@ -889,7 +889,7 @@ MonoBehaviour:
   isBuff: 0
   isAOE: 0
   isPassive: 0
-  cooldown: 2
+  cooldown: 2.5
   objectBase: {fileID: 7391465122414769454}
   force: 100
   radius: 0
@@ -1011,6 +1011,7 @@ GameObject:
   - component: {fileID: 7391465122414769450}
   - component: {fileID: 7391465122414769453}
   - component: {fileID: 7391465122414769452}
+  - component: {fileID: 854810573005349341}
   m_Layer: 0
   m_Name: Seed
   m_TagString: Projectile
@@ -1153,6 +1154,27 @@ MonoBehaviour:
   destroyOnGround: 1
   stuckOnGround: 0
   passiveAbilityObjectBase: {fileID: 3927780147072950001}
+--- !u!114 &854810573005349341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7391465122414769454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dfa82ba8cf5dad45b9ca1e39ad4e618, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleAnim: {fileID: 0}
+  activatingAnim: {fileID: 0}
+  activeAnim: {fileID: 0}
+  animator: {fileID: 0}
+  active: 0
+  activating: 0
+  activatingDuration: 0.33
+  activatingAudio: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!1 &9049297271849995317
 GameObject:
   m_ObjectHideFlags: 0

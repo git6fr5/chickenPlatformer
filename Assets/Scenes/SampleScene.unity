@@ -370,7 +370,7 @@ MonoBehaviour:
     m_Bits: 1024
   destroyOnGround: 0
   stuckOnGround: 1
-  passiveAbilityObject: {fileID: 0}
+  passiveAbilityObjectBase: {fileID: 0}
 --- !u!50 &117082905
 Rigidbody2D:
   serializedVersion: 4
@@ -5862,7 +5862,7 @@ MonoBehaviour:
     m_Bits: 1024
   destroyOnGround: 1
   stuckOnGround: 0
-  passiveAbilityObject: {fileID: 658608293}
+  passiveAbilityObjectBase: {fileID: 0}
 --- !u!61 &1041300747
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7231,7 +7231,7 @@ MonoBehaviour:
     m_Bits: 1024
   destroyOnGround: 0
   stuckOnGround: 0
-  passiveAbilityObject: {fileID: 0}
+  passiveAbilityObjectBase: {fileID: 0}
 --- !u!1 &1340429892
 GameObject:
   m_ObjectHideFlags: 0
@@ -8500,7 +8500,7 @@ MonoBehaviour:
     m_Bits: 1024
   destroyOnGround: 1
   stuckOnGround: 0
-  passiveAbilityObject: {fileID: 0}
+  passiveAbilityObjectBase: {fileID: 0}
 --- !u!58 &1769607356
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -11171,4 +11171,4 @@ MonoBehaviour:
     m_Bits: 1024
   destroyOnGround: 0
   stuckOnGround: 0
-  passiveAbilityObject: {fileID: 0}
+  passiveAbilityObjectBase: {fileID: 0}
