@@ -22,7 +22,7 @@ public class InventoryScript : MonoBehaviour
     public void ResetToDefault()
     {
         selectedAbilityImage.sprite = defaultSprite;
-        Close();
+        //Close();
     }
 
     void Update()
@@ -37,25 +37,25 @@ public class InventoryScript : MonoBehaviour
 
     public void Open(GameObject clientObject)
     {
-        CharacterScript clientScript = clientObject.GetComponent<CharacterScript>();
+        /*CharacterScript clientScript = clientObject.GetComponent<CharacterScript>();
         for (int i = 0; i < clientScript.abilityObjectList.Count; i++)
         {
             Image abilityImage = Instantiate(selectedAbilityImage, selectedAbilityImage.transform.position, Quaternion.identity, abilityBox.transform);
             abilityImage.transform.position = new Vector3(abilityImage.transform.position.x, abilityImage.transform.position.y + (i+1) * abilityImage.rectTransform.sizeDelta.y, abilityImage.transform.position.z);
             abilityImage.sprite = clientScript.abilityObjectList[i].GetComponent<SpriteRenderer>().sprite;
             abilityImages.Add(abilityImage);
-        }
+        }*/
         isOpened = true;
     }
 
     public void Close()
     {
-        foreach (Image image in abilityImages)
+        /*foreach (Image image in abilityImages)
         {
             Destroy(image.gameObject);
         }
         abilityImages = new List<Image>();
-        print("Closing Inventory");
+        print("Closing Inventory");*/
         isOpened = false;
     }
 }

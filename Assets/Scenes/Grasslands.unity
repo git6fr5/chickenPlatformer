@@ -147,7 +147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 29313423}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1506816607}
@@ -210,6 +210,10 @@ PrefabInstance:
     - target: {fileID: 3378957882449213244, guid: 582b6b3dd6a412842b6594b48d5a70b5, type: 3}
       propertyPath: m_Name
       value: Tree Chicken (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3378957882449213244, guid: 582b6b3dd6a412842b6594b48d5a70b5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 582b6b3dd6a412842b6594b48d5a70b5, type: 3}
@@ -469,6 +473,10 @@ PrefabInstance:
     - target: {fileID: 6566464890656170257, guid: 2f8a64aa3fed200429eae826cdd72da7, type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6566464890656170263, guid: 2f8a64aa3fed200429eae826cdd72da7, type: 3}
+      propertyPath: isRespawnAnchor
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f8a64aa3fed200429eae826cdd72da7, type: 3}
@@ -2032,7 +2040,7 @@ MonoBehaviour:
   inventoryItems: []
   isOpened: 0
   selectedAbilityImage: {fileID: 4404902082568257505}
-  timerBox: {fileID: 0}
+  timerBox: {fileID: 4404902083441578455}
   abilityBox: {fileID: 0}
 --- !u!223 &4404902083883507485
 Canvas:
@@ -2142,10 +2150,10 @@ SpriteRenderer:
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 1.25}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &4404902083916383094
@@ -2267,7 +2275,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1.25}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1.25}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -3018,6 +3026,10 @@ PrefabInstance:
     - target: {fileID: 2686412733895708952, guid: e5e333c84397314499f4f68ba146f5bb, type: 3}
       propertyPath: m_Name
       value: Basic Chicken
+      objectReference: {fileID: 0}
+    - target: {fileID: 2686412733895708952, guid: e5e333c84397314499f4f68ba146f5bb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2686412733895708959, guid: e5e333c84397314499f4f68ba146f5bb, type: 3}
       propertyPath: m_LocalPosition.x

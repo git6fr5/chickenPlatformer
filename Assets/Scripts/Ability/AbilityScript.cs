@@ -72,6 +72,7 @@ public class AbilityScript : MonoBehaviour
             bool alreadyAccquired = false;
             foreach (GameObject abilityObject in hitCharacterScript.abilityObjectList)
             {
+                print(abilityObject.name);
                 if (abilityObject.name == name)
                 {
                     alreadyAccquired = true;
@@ -90,7 +91,7 @@ public class AbilityScript : MonoBehaviour
             }
             else
             {
-                Destroy(gameObject);
+                //Destroy(gameObject);
             }
         }
     }
