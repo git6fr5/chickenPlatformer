@@ -71,7 +71,7 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 
-	public void Move(float move, bool crouch, bool jump)
+	public void Move(float move, float climb, bool climbing, bool crouch, bool jump)
 	{
 
 		/*if (m_FallCheck)
@@ -149,6 +149,14 @@ public class CharacterController2D : MonoBehaviour
 		{
 			// Add a vertical force to the player.
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+		}
+
+		if (climbing)
+        {
+			// Move the character by finding the target velocity
+			Vector3 targetVelocity = new Vector2(m_Rigidbody2D.velocity.x, climb * 10f);
+			// And then smoothing it out and applying it to the character
+			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 		}
 	}
 

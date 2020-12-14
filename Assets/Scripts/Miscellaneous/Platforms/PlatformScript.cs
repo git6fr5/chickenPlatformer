@@ -34,7 +34,7 @@ public class PlatformScript : MonoBehaviour
     {
         if (isMoving)
         {
-            print(elapsedLength);
+            //print(elapsedLength);
             if (Mathf.Abs(elapsedLength) > length)
             {
                 direction = -direction;

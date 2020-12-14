@@ -11,6 +11,7 @@ TagManager:
   - Platform
   - Scenery
   - Modifier
+  - Climbable
   layers:
   - Default
   - TransparentFX
