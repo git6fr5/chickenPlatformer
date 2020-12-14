@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RespawnAnchorScript : MonoBehaviour
+public class InteractableScript : MonoBehaviour
 {
 
     /* --- Debug --- */
@@ -14,6 +14,7 @@ public class RespawnAnchorScript : MonoBehaviour
 
     public bool isRespawnAnchor;
     public bool isCoin;
+
     private bool isCollected = false;
 
     /* --- External Scripts ---*/
@@ -57,7 +58,7 @@ public class RespawnAnchorScript : MonoBehaviour
         CharacterScript characterScript = hitInfo.gameObject.GetComponent<CharacterScript>();
         if (characterScript.respawnObject && characterScript.respawnObject != gameObject) // this should always be true, but just in case
         {
-            characterScript.respawnObject.GetComponent<RespawnAnchorScript>().animation2D.active = false;
+            characterScript.respawnObject.GetComponent<InteractableScript>().animation2D.active = false;
 
         }
     }
