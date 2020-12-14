@@ -6,33 +6,43 @@ using UnityEngine.UI;
 
 public class InventoryScript : MonoBehaviour
 {
+
+    public GameObject Client;
+    private CharacterScript clientScript;
+
     public Sprite defaultSprite;
     public List<Image> inventoryItems = new List<Image>();
 
     [HideInInspector] public bool isOpened = false;
 
     public Image selectedAbilityImage;
-    public Text timerBox;
-    public GameObject abilityBox;
+    public Text timerText;
+    public Text coinCounterText;
 
     private List<Image> abilityImages = new List<Image>();
 
     private float elapsedTime = 0;
 
-    public void ResetToDefault()
+    void Start()
     {
-        selectedAbilityImage.sprite = defaultSprite;
-        //Close();
+        clientScript = Client.GetComponent<CharacterScript>();
     }
 
     void Update()
     {
-        timerBox.text = ((int)(elapsedTime % 60)).ToString();
+        coinCounterText.text = clientScript.coins.ToString();
+        timerText.text = ((int)(elapsedTime % 60)).ToString();
     }
 
     void FixedUpdate()
     {
         elapsedTime = elapsedTime + Time.fixedDeltaTime;
+    }
+
+    public void ResetToDefault()
+    {
+        selectedAbilityImage.sprite = defaultSprite;
+        //Close();
     }
 
     public void Open(GameObject clientObject)

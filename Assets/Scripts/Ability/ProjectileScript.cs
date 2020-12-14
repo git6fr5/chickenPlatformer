@@ -72,7 +72,7 @@ public class ProjectileScript : MonoBehaviour
 
         if (DEBUG_collision) { print(DebugTag + "Projectile has hit an object in the layer " + layerMask.value.ToString() + " but need the layer " + abilityScript.targetLayer.value.ToString()); }
 
-        if (layerMask == abilityScript.targetLayer && !isStuck)
+        if (abilityScript && layerMask == abilityScript.targetLayer && !isStuck)
         {
             CharacterScript characterScript = hitObject.gameObject.GetComponent<CharacterScript>();
             characterScript.Damage(abilityScript.damageValue, abilityScript.damageType);
@@ -85,7 +85,7 @@ public class ProjectileScript : MonoBehaviour
             {
                 if (passiveAbilityScript.isPassive)
                 {
-                    print("attempting to cast root from seed");
+                    //print("attempting to cast root from seed");
                     passiveAbilityScript.Apply(gameObject, true, abilityScript.targetLayer);
                 }
             }
@@ -127,7 +127,7 @@ public class ProjectileScript : MonoBehaviour
         orientation = Vector3.right * orientationAngle; // + Vector3.up * orientationAngle;
 
         transform.eulerAngles = direction + orientation;
-        print(orientationAngle);
+        //print(orientationAngle);
 
     }
 

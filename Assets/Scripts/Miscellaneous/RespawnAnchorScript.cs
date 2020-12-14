@@ -8,11 +8,13 @@ public class RespawnAnchorScript : MonoBehaviour
     /* --- Debug --- */
     private string DebugTag = "[MnM RespawnAnchorScript]  ";
     private bool DEBUG_collision = false;
+    private bool DEBUG_coin = true;
 
     public LayerMask playerLayer;
 
     public bool isRespawnAnchor;
     public bool isCoin;
+    private bool isCollected = false;
 
     /* --- External Scripts ---*/
 
@@ -24,7 +26,7 @@ public class RespawnAnchorScript : MonoBehaviour
     {
         LayerMask layerMask = LayerMask.GetMask(LayerMask.LayerToName(hitInfo.gameObject.layer));
 
-        if (DEBUG_collision) { print(DebugTag + "Projectile has hit an object in the layer " + layerMask.value.ToString() + " but need the layer " + playerLayer.value.ToString()); }
+        if (DEBUG_collision) { print(DebugTag + gameObject.name + " has hit an object in the layer " + layerMask.value.ToString() + " but need the layer " + playerLayer.value.ToString()); }
 
         if (layerMask == playerLayer)
         {
@@ -62,8 +64,13 @@ public class RespawnAnchorScript : MonoBehaviour
 
     public void CollectCoin(Collider2D hitInfo)
     {
-        CharacterScript characterScript = hitInfo.gameObject.GetComponent<CharacterScript>();
-        characterScript.coins = characterScript.coins + 1;
+        if (DEBUG_coin) { print(DebugTag + hitInfo.gameObject.name + " is trying to collect a coin");  }
+        if (!isCollected)
+        {
+            CharacterScript characterScript = hitInfo.gameObject.GetComponent<CharacterScript>();
+            characterScript.coins = characterScript.coins + 1;
+            isCollected = true;
+        }
         Destroy(gameObject);
     }
 }
