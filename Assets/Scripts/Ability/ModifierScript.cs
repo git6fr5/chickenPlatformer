@@ -77,6 +77,9 @@ public class ModifierScript : MonoBehaviour
         {
             Rigidbody2D casterBody = abilityScript.casterObject.GetComponent<Rigidbody2D>();
             casterBody.AddForce(new Vector2(0f, abilityScript.force));
+
+            CharacterScript characterScript = hitInfo.gameObject.GetComponent<CharacterScript>();
+            characterScript.jump = true;
         }
         if (layerMask == abilityScript.targetLayer )
         {

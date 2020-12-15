@@ -51,11 +51,11 @@ public class CharacterScript : MonoBehaviour
     float horizontalMove = 0f;
 
     public float climbSpeed = 20f;
-    float verticalMove = 0f;
+    [HideInInspector] public float verticalMove = 0f;
 
     float left = -1f;
     float right = 1f;
-    bool jump = false;
+    [HideInInspector] public bool jump = false;
     bool crouch = false;
     bool inAir = true;
     [HideInInspector] public bool climbing = false;

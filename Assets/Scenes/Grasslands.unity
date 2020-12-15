@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &29313424
 Transform:
   m_ObjectHideFlags: 0
@@ -155,6 +155,36 @@ Transform:
   - {fileID: 3157068507436935242}
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &92074839
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 92074840}
+  m_Layer: 8
+  m_Name: ClimbCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &92074840
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 92074839}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.29, y: 0.03, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4404902083916383092}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1218969157
 GameObject:
@@ -490,7 +520,7 @@ EdgeCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 1
+  m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
@@ -622,7 +652,7 @@ PlatformEffector2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1445275173}
-  m_Enabled: 1
+  m_Enabled: 0
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
@@ -647,7 +677,7 @@ GameObject:
   - component: {fileID: 1713270943}
   - component: {fileID: 1713270942}
   - component: {fileID: 1713270939}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: Rope
   m_TagString: Climbable
   m_Icon: {fileID: 0}
@@ -1028,7 +1058,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1729990807}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.58, y: 2.35, z: 0}
+  m_LocalPosition: {x: 10.59, y: 2.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1891,7 +1921,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4404902083916383092}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &618943088413823688
 MonoBehaviour:
@@ -2944,7 +2974,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2833625005870625593}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.59, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2833625005008465141}
@@ -3007,18 +3037,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.22505045, y: 0.0026223063}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.1875, y: 0.1875}
+    oldSize: {x: 0.1875, y: 0.3125}
     newSize: {x: 0.1875, y: 0.1875}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.1875, y: 0.1875}
+  m_Size: {x: 0.27900028, y: 0.049117096}
   m_EdgeRadius: 0
 --- !u!50 &3157068507436935232
 Rigidbody2D:
@@ -3035,11 +3065,11 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 2
+  m_GravityScale: 3
   m_Material: {fileID: 6200000, guid: c49e19593d0048b4abcba8ded2cf158f, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &3157068507436935233
 BoxCollider2D:
@@ -3287,7 +3317,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &3157068507436935244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3310,6 +3340,7 @@ MonoBehaviour:
     m_Bits: 1024
   m_GroundCheck: {fileID: 3157068508109346114}
   m_CeilingCheck: {fileID: 3157068508641542761}
+  m_ClimbCheck: {fileID: 0}
   m_CrouchDisableCollider: {fileID: 3157068507436935233}
   OnLandEvent:
     m_PersistentCalls:
@@ -3346,7 +3377,7 @@ MonoBehaviour:
   magicalShieldBase: 0
   mechanicalShieldBase: 0
   spriteDataBase:
-  - {fileID: 21300000, guid: 61f4da1a1211825418bf95f065b4b50e, type: 3}
+  - {fileID: 21300000, guid: c0e2e9e39747b8343a198acfb2ec33af, type: 3}
   - {fileID: 21300000, guid: 6b1692c38a79ca041a757f6254d4d097, type: 3}
   - {fileID: 21300000, guid: dfe4a1a1e31787e448d249c5d2ed9b6b, type: 3}
   spriteObject: {fileID: 3157068507625572379}
@@ -3355,6 +3386,8 @@ MonoBehaviour:
   respawnObject: {fileID: 0}
   runSpeed: 5
   climbSpeed: 20
+  verticalMove: 0
+  jump: 0
   climbing: 0
   fallCheck: {fileID: 0}
   abilityObjectList:
@@ -3593,6 +3626,7 @@ MonoBehaviour:
     m_Bits: 1024
   m_GroundCheck: {fileID: 3378957882785078269}
   m_CeilingCheck: {fileID: 3378957883670903567}
+  m_ClimbCheck: {fileID: 0}
   m_CrouchDisableCollider: {fileID: 3378957882025555059}
   OnLandEvent:
     m_PersistentCalls:
@@ -3769,7 +3803,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3378957882025555068
 Transform:
   m_ObjectHideFlags: 0
@@ -3933,7 +3967,7 @@ MonoBehaviour:
   magicalShieldBase: 0
   mechanicalShieldBase: 0
   spriteDataBase:
-  - {fileID: 21300000, guid: 61f4da1a1211825418bf95f065b4b50e, type: 3}
+  - {fileID: 21300000, guid: c0e2e9e39747b8343a198acfb2ec33af, type: 3}
   - {fileID: 21300000, guid: 6b1692c38a79ca041a757f6254d4d097, type: 3}
   - {fileID: 21300000, guid: dfe4a1a1e31787e448d249c5d2ed9b6b, type: 3}
   spriteObject: {fileID: 3378957882763434344}
@@ -3942,6 +3976,8 @@ MonoBehaviour:
   respawnObject: {fileID: 0}
   runSpeed: 12
   climbSpeed: 20
+  verticalMove: 0
+  jump: 0
   climbing: 0
   fallCheck: {fileID: 9049297271132278642}
   abilityObjectList:
@@ -4667,7 +4703,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4404902083916383092}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4404902082324434744
 GameObject:
@@ -5090,7 +5126,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4404902083916383092}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4404902083272012959
 GameObject:
@@ -5483,7 +5519,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4404902083755638350}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0275, y: -0.5625, z: 0}
+  m_LocalPosition: {x: 0.0275, y: -0.749, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4404902083916383092}
@@ -5647,6 +5683,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4404902083755638353}
+  - {fileID: 92074840}
   - {fileID: 4404902083272012958}
   - {fileID: 4404902082289299403}
   - {fileID: 618943088413823671}
@@ -5693,9 +5730,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4563722a222929f408298f503bc6cf68, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8f14ea3f2c149cf4ab058a5e50a9d7fe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1.25}
@@ -5742,7 +5779,7 @@ MonoBehaviour:
   magicalShieldBase: 0
   mechanicalShieldBase: 0
   spriteDataBase:
-  - {fileID: 21300000, guid: 61f4da1a1211825418bf95f065b4b50e, type: 3}
+  - {fileID: 21300000, guid: c0e2e9e39747b8343a198acfb2ec33af, type: 3}
   - {fileID: 21300000, guid: 6b1692c38a79ca041a757f6254d4d097, type: 3}
   - {fileID: 21300000, guid: dfe4a1a1e31787e448d249c5d2ed9b6b, type: 3}
   spriteObject: {fileID: 4404902082289299400}
@@ -5751,6 +5788,8 @@ MonoBehaviour:
   respawnObject: {fileID: 0}
   runSpeed: 40
   climbSpeed: 20
+  verticalMove: 0
+  jump: 0
   climbing: 0
   fallCheck: {fileID: 0}
   abilityObjectList: []
@@ -5778,7 +5817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86d40b4ee0572684eb03012fb88f8388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_JumpForce: 500
+  m_JumpForce: 600
   m_CrouchForce: 400
   m_CrouchSpeed: 0.36
   m_MovementSmoothing: 0.05
@@ -5788,6 +5827,7 @@ MonoBehaviour:
     m_Bits: 1024
   m_GroundCheck: {fileID: 4404902083755638353}
   m_CeilingCheck: {fileID: 4404902083272012958}
+  m_ClimbCheck: {fileID: 0}
   m_CrouchDisableCollider: {fileID: 4404902083916383097}
   OnLandEvent:
     m_PersistentCalls:
@@ -5824,14 +5864,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1.25}
+    oldSize: {x: 1, y: 1.5}
     newSize: {x: 1, y: 1.25}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6875, y: 0.75}
+  m_Size: {x: 0.6875, y: 0.875}
   m_EdgeRadius: 0
 --- !u!95 &4404902083916383098
 Animator:
@@ -5843,7 +5883,7 @@ Animator:
   m_GameObject: {fileID: 4404902083916383090}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1d37403963e47344d9850ffc44bcbada, type: 2}
+  m_Controller: {fileID: 9100000, guid: af85dfd86ebd6b64bafdfd29072ac1ac, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5865,9 +5905,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0275, y: -0.215}
+  m_Offset: {x: 0.027500004, y: -0.375}
   serializedVersion: 2
-  m_Radius: 0.35
+  m_Radius: 0.375
 --- !u!82 &4404902083916383100
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5976,11 +6016,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e57720553f4a514ebabf90d58d4bf3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleAnim: {fileID: 7400000, guid: 9a8664b72e687784fbdc4aa68316d63d, type: 2}
-  runningAnim: {fileID: 7400000, guid: 4cb5834ae473a9b49a8b34c822b7c334, type: 2}
-  jumpingAnim: {fileID: 7400000, guid: 7a96cd265f585b54888c2277635d283f, type: 2}
-  crouchingAnim: {fileID: 7400000, guid: 5777ee5365bf2ae4b9b8f2cf483bdce6, type: 2}
-  hurtAnim: {fileID: 7400000, guid: 442d82370ce8a2f41a26c2f247dc368e, type: 2}
+  idleAnim: {fileID: 7400000, guid: 2565a3404343ec544925a9441d4c895c, type: 2}
+  runningAnim: {fileID: 7400000, guid: 5ca8c0df64d3677468fbf9873a02b48c, type: 2}
+  jumpingAnim: {fileID: 7400000, guid: 61c7e8b18d83d6d43ac4325b981a6f51, type: 2}
+  crouchingAnim: {fileID: 7400000, guid: a5303665634d0dc4eb18a1c4f08c9705, type: 2}
+  hurtAnim: {fileID: 0}
   deathAnim: {fileID: 0}
   animator: {fileID: 4404902083916383098}
   x_speed: 0
@@ -6105,7 +6145,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &4884862798329060980
 Rigidbody2D:
   serializedVersion: 4
@@ -6461,7 +6501,7 @@ MonoBehaviour:
   isPassive: 1
   cooldown: 0
   objectBase: {fileID: 4964791030075105534}
-  force: 600
+  force: 800
   radius: 0
   damageValue: 1
   damageType: magical
@@ -6661,7 +6701,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &5057925069768480281
 Rigidbody2D:
   serializedVersion: 4
@@ -6818,6 +6858,7 @@ MonoBehaviour:
     m_Bits: 1024
   m_GroundCheck: {fileID: 5057925069881496071}
   m_CeilingCheck: {fileID: 5057925070872103793}
+  m_ClimbCheck: {fileID: 0}
   m_CrouchDisableCollider: {fileID: 5057925069768480285}
   OnLandEvent:
     m_PersistentCalls:
@@ -6854,7 +6895,7 @@ MonoBehaviour:
   magicalShieldBase: 0
   mechanicalShieldBase: 0
   spriteDataBase:
-  - {fileID: 21300000, guid: 61f4da1a1211825418bf95f065b4b50e, type: 3}
+  - {fileID: 21300000, guid: c0e2e9e39747b8343a198acfb2ec33af, type: 3}
   - {fileID: 21300000, guid: 6b1692c38a79ca041a757f6254d4d097, type: 3}
   - {fileID: 21300000, guid: dfe4a1a1e31787e448d249c5d2ed9b6b, type: 3}
   spriteObject: {fileID: 5057925070920933091}
@@ -6863,6 +6904,8 @@ MonoBehaviour:
   respawnObject: {fileID: 0}
   runSpeed: 10
   climbSpeed: 20
+  verticalMove: 0
+  jump: 0
   climbing: 0
   fallCheck: {fileID: 0}
   abilityObjectList:
@@ -8600,7 +8643,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7753006223414804271
 Transform:
   m_ObjectHideFlags: 0

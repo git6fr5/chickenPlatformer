@@ -12,6 +12,8 @@ public class CharacterController2D : MonoBehaviour
 	[SerializeField] public Transform m_GroundCheck;                           // A position marking where to check if the player is grounded.
 	[SerializeField] public Transform m_CeilingCheck;                          // A position marking where to check for ceilings
 	//[SerializeField] public Transform m_FallCheck;								// A position marking where to check for the end of ground
+	[SerializeField] public Transform m_ClimbCheck;								// A position marking where to check for the end of ground
+
 
 	[SerializeField] public Collider2D m_CrouchDisableCollider;                // A collider that will be disabled when crouching
 
@@ -19,6 +21,8 @@ public class CharacterController2D : MonoBehaviour
 	private bool m_Grounded;            // Whether or not the player is grounded.
 	const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
 	//const float k_FallRadius = .2f; // Radius of the overlap circle to determine if there is ground to walk towards
+	private bool m_Climbing;            // Whether or not the player is grounded.
+
 
 	private Rigidbody2D m_Rigidbody2D;
 	private bool m_FacingRight = true;  // For determining which way the player is currently facing.

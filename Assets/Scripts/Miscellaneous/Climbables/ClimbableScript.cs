@@ -30,15 +30,32 @@ public class ClimbableScript : MonoBehaviour
         if (layerMask == playerLayer)
         {
             CharacterScript characterScript = hitInfo.gameObject.GetComponent<CharacterScript>();
-            body = hitInfo.gameObject.GetComponent<Rigidbody2D>();
-            body.constraints = RigidbodyConstraints2D.FreezePositionX;
-            StartCoroutine("AttachBuffer", bufferTime);
-            body.gravityScale = body.gravityScale/10;
-            body.velocity = Vector2.zero;
+            if (characterScript.verticalMove != 0)
+            {
+                body = hitInfo.gameObject.GetComponent<Rigidbody2D>();
+                //body.constraints = RigidbodyConstraints2D.FreezePositionX; // RigidbodyConstraints.FreezeRotation;
 
-            characterScript.climbing = true;
+                StartCoroutine("AttachBuffer", bufferTime);
+                body.gravityScale = body.gravityScale / 10;
+                body.velocity = Vector2.zero;
+
+                characterScript.climbing = true;
+            }
         }
     }
+
+    /*void OnTriggerStay2D(Collider2D hitInfo)
+    {
+        LayerMask layerMask = LayerMask.GetMask(LayerMask.LayerToName(hitInfo.gameObject.layer));
+
+        if (DEBUG_collision) { print(DebugTag + gameObject.name + " has hit an object in the layer " + layerMask.value.ToString() + " but need the layer " + playerLayer.value.ToString()); }
+
+        if (layerMask == playerLayer)
+        {
+            CharacterScript characterScript = hitInfo.gameObject.GetComponent<CharacterScript>();
+            //characterScript.climbing = true;
+        }
+    }*/
 
     void OnTriggerExit2D(Collider2D hitInfo)
     {
@@ -49,10 +66,13 @@ public class ClimbableScript : MonoBehaviour
         if (layerMask == playerLayer)
         {
             CharacterScript characterScript = hitInfo.gameObject.GetComponent<CharacterScript>();
-            Rigidbody2D body = hitInfo.gameObject.GetComponent<Rigidbody2D>();
-            body.gravityScale = body.gravityScale * 10;
+            if (characterScript.climbing)
+            {
+                Rigidbody2D body = hitInfo.gameObject.GetComponent<Rigidbody2D>();
+                body.gravityScale = body.gravityScale * 10;
 
-            characterScript.climbing = false;
+                characterScript.climbing = false;
+            }
         }
     }
 

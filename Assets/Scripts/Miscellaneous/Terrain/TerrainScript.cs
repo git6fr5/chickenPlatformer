@@ -34,8 +34,8 @@ public class TerrainScript : MonoBehaviour
             if (isMuddy)
             {
                 CharacterScript characterScript = hitInfo.gameObject.GetComponent<CharacterScript>();
-                characterScript.runSpeed = characterScript.runSpeed / 2;
-                weightForce = -characterScript.controller2D.m_JumpForce / 2;
+                characterScript.runSpeed = characterScript.runSpeed / 3;
+                characterScript.controller2D.m_JumpForce = characterScript.controller2D.m_JumpForce / 3;
             }
         }
     }
@@ -67,7 +67,9 @@ public class TerrainScript : MonoBehaviour
             if (isMuddy)
             {
                 CharacterScript characterScript = hitInfo.gameObject.GetComponent<CharacterScript>();
-                characterScript.runSpeed = characterScript.runSpeed * 2;
+                characterScript.runSpeed = characterScript.runSpeed * 3;
+                characterScript.controller2D.m_JumpForce = characterScript.controller2D.m_JumpForce * 3;
+
             }
         }
     }
