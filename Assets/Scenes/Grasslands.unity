@@ -693,13 +693,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1713270938}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62e1d5b8082ab984796db078c6f7d3cd, type: 3}
+  m_Script: {fileID: 11500000, guid: 38be7ef6249edc74c8b4d24b4860f0a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
-  body: {fileID: 0}
   animation2D: {fileID: 0}
 --- !u!68 &1713270942
 EdgeCollider2D:
@@ -831,8 +830,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1713270938}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.97, y: 2.08, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 2.97, y: 1.264, z: 0}
+  m_LocalScale: {x: 0.9881871, y: 1.2663195, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 11
@@ -3317,7 +3316,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &3157068507436935244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3338,6 +3337,9 @@ MonoBehaviour:
   m_WhatIsGround:
     serializedVersion: 2
     m_Bits: 1024
+  m_WhatIsClimbable:
+    serializedVersion: 2
+    m_Bits: 0
   m_GroundCheck: {fileID: 3157068508109346114}
   m_CeilingCheck: {fileID: 3157068508641542761}
   m_ClimbCheck: {fileID: 0}
@@ -3387,8 +3389,7 @@ MonoBehaviour:
   runSpeed: 5
   climbSpeed: 20
   verticalMove: 0
-  jump: 0
-  climbing: 0
+  inAir: 1
   fallCheck: {fileID: 0}
   abilityObjectList:
   - {fileID: 4964791030070619267}
@@ -3399,7 +3400,7 @@ MonoBehaviour:
   friendlyLayer:
     serializedVersion: 2
     m_Bits: 512
-  coins: 50
+  coins: 1
   coinObject: {fileID: 550867310937037057}
   inventoryObject: {fileID: 0}
   controller2D: {fileID: 3157068507436935244}
@@ -3624,6 +3625,9 @@ MonoBehaviour:
   m_WhatIsGround:
     serializedVersion: 2
     m_Bits: 1024
+  m_WhatIsClimbable:
+    serializedVersion: 2
+    m_Bits: 0
   m_GroundCheck: {fileID: 3378957882785078269}
   m_CeilingCheck: {fileID: 3378957883670903567}
   m_ClimbCheck: {fileID: 0}
@@ -3977,8 +3981,7 @@ MonoBehaviour:
   runSpeed: 12
   climbSpeed: 20
   verticalMove: 0
-  jump: 0
-  climbing: 0
+  inAir: 1
   fallCheck: {fileID: 9049297271132278642}
   abilityObjectList:
   - {fileID: 7391465120984169505}
@@ -5789,8 +5792,7 @@ MonoBehaviour:
   runSpeed: 40
   climbSpeed: 20
   verticalMove: 0
-  jump: 0
-  climbing: 0
+  inAir: 1
   fallCheck: {fileID: 0}
   abilityObjectList: []
   selectedAbilityIndex: 0
@@ -5825,9 +5827,12 @@ MonoBehaviour:
   m_WhatIsGround:
     serializedVersion: 2
     m_Bits: 1024
+  m_WhatIsClimbable:
+    serializedVersion: 2
+    m_Bits: 4096
   m_GroundCheck: {fileID: 4404902083755638353}
   m_CeilingCheck: {fileID: 4404902083272012958}
-  m_ClimbCheck: {fileID: 0}
+  m_ClimbCheck: {fileID: 92074840}
   m_CrouchDisableCollider: {fileID: 4404902083916383097}
   OnLandEvent:
     m_PersistentCalls:
@@ -6856,6 +6861,9 @@ MonoBehaviour:
   m_WhatIsGround:
     serializedVersion: 2
     m_Bits: 1024
+  m_WhatIsClimbable:
+    serializedVersion: 2
+    m_Bits: 0
   m_GroundCheck: {fileID: 5057925069881496071}
   m_CeilingCheck: {fileID: 5057925070872103793}
   m_ClimbCheck: {fileID: 0}
@@ -6905,8 +6913,7 @@ MonoBehaviour:
   runSpeed: 10
   climbSpeed: 20
   verticalMove: 0
-  jump: 0
-  climbing: 0
+  inAir: 1
   fallCheck: {fileID: 0}
   abilityObjectList:
   - {fileID: 7291616757094662362}

@@ -55,10 +55,10 @@ public class CharacterScript : MonoBehaviour
 
     float left = -1f;
     float right = 1f;
-    [HideInInspector] public bool jump = false;
+    bool jump = false;
     bool crouch = false;
-    bool inAir = true;
-    [HideInInspector] public bool climbing = false;
+    [HideInInspector] public bool inAir = true;
+    //[HideInInspector] public bool climbing = false;
 
     public GameObject fallCheck;
 
@@ -363,7 +363,7 @@ public class CharacterScript : MonoBehaviour
     private void MotionControl()
     {
         if (DEBUG_motion) { print(DebugTag + "Running MotionControl"); }
-        controller2D.Move(horizontalMove * Time.fixedDeltaTime, verticalMove * Time.fixedDeltaTime, climbing, crouch, jump);
+        controller2D.Move(horizontalMove * Time.fixedDeltaTime, verticalMove * Time.fixedDeltaTime, crouch, jump);
         jump = false;
 
         animation2D.crouch = crouch;

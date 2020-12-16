@@ -9,6 +9,7 @@ public class CharacterController2D : MonoBehaviour
 	[Range(0, .3f)] [SerializeField] public float m_MovementSmoothing = .05f;  // How much to smooth out the movement
 	[SerializeField] public bool m_AirControl = false;                         // Whether or not a player can steer while jumping;
 	[SerializeField] public LayerMask m_WhatIsGround;                          // A mask determining what is ground to the character
+	[SerializeField] public LayerMask m_WhatIsClimbable;                          // A mask determining what is climbable to the character
 	[SerializeField] public Transform m_GroundCheck;                           // A position marking where to check if the player is grounded.
 	[SerializeField] public Transform m_CeilingCheck;                          // A position marking where to check for ceilings
 	//[SerializeField] public Transform m_FallCheck;								// A position marking where to check for the end of ground
@@ -22,7 +23,7 @@ public class CharacterController2D : MonoBehaviour
 	const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
 	//const float k_FallRadius = .2f; // Radius of the overlap circle to determine if there is ground to walk towards
 	private bool m_Climbing;            // Whether or not the player is grounded.
-
+	const float k_ClimbingRadius = .2f;
 
 	private Rigidbody2D m_Rigidbody2D;
 	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
@@ -72,10 +73,24 @@ public class CharacterController2D : MonoBehaviour
 
 		//print(m_Grounded.ToString() + " " + wasGrounded.ToString());
 
+		// The player is grounded if a circlecast to the climbing check position hits anything designated as ground
+		// This can be done using layers instead but Sample Assets will not overwrite your project settings.
+		bool wasClimbing = m_Climbing;
+		m_Climbing = false;
+
+		Collider2D[] climb_colliders = Physics2D.OverlapCircleAll(m_ClimbCheck.position, k_ClimbingRadius, m_WhatIsClimbable);
+		for (int i = 0; i < climb_colliders.Length; i++)
+		{
+			if (climb_colliders[i].gameObject != gameObject)
+			{
+				m_Climbing = true;
+			}
+		}
+
 	}
 
 
-	public void Move(float move, float climb, bool climbing, bool crouch, bool jump)
+	public void Move(float xMove, float yMove, bool crouch, bool jump)
 	{
 
 		/*if (m_FallCheck)
@@ -111,7 +126,7 @@ public class CharacterController2D : MonoBehaviour
 				}
 
 				// Reduce the speed by the crouchSpeed multiplier
-				move *= m_CrouchSpeed;
+				xMove *= m_CrouchSpeed;
 
 				// Disable one of the colliders when crouching
 				if (m_CrouchDisableCollider != null)
@@ -131,18 +146,18 @@ public class CharacterController2D : MonoBehaviour
 			}
 
 			// Move the character by finding the target velocity
-			Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
+			Vector3 targetVelocity = new Vector2(xMove * 10f, m_Rigidbody2D.velocity.y);
 			// And then smoothing it out and applying it to the character
 			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
 			// If the input is moving the player right and the player is facing left...
-			if (move > 0 && !m_FacingRight)
+			if (xMove > 0 && !m_FacingRight)
 			{
 				// ... flip the player.
 				Flip();
 			}
 			// Otherwise if the input is moving the player left and the player is facing right...
-			else if (move < 0 && m_FacingRight)
+			else if (xMove < 0 && m_FacingRight)
 			{
 				// ... flip the player.
 				Flip();
@@ -155,10 +170,10 @@ public class CharacterController2D : MonoBehaviour
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 		}
 
-		if (climbing)
+		if (m_Climbing)
         {
 			// Move the character by finding the target velocity
-			Vector3 targetVelocity = new Vector2(m_Rigidbody2D.velocity.x, climb * 10f);
+			Vector3 targetVelocity = new Vector2(m_Rigidbody2D.velocity.x, yMove * 10f);
 			// And then smoothing it out and applying it to the character
 			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 		}

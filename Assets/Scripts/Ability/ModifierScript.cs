@@ -79,7 +79,7 @@ public class ModifierScript : MonoBehaviour
             casterBody.AddForce(new Vector2(0f, abilityScript.force));
 
             CharacterScript characterScript = hitInfo.gameObject.GetComponent<CharacterScript>();
-            characterScript.jump = true;
+
         }
         if (layerMask == abilityScript.targetLayer )
         {
