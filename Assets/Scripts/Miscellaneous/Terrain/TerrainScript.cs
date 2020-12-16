@@ -14,7 +14,8 @@ public class TerrainScript : MonoBehaviour
     public bool isMuddy;
     public bool isWater;
 
-    private float weightForce;
+    private float muddyJumpMultiplier = 0.8f;
+    private float muddyRunMultiplier = 0.2f;
 
     void Start()
     {
@@ -34,8 +35,8 @@ public class TerrainScript : MonoBehaviour
             if (isMuddy)
             {
                 CharacterScript characterScript = hitInfo.gameObject.GetComponent<CharacterScript>();
-                characterScript.runSpeed = characterScript.runSpeed / 3;
-                characterScript.controller2D.m_JumpForce = characterScript.controller2D.m_JumpForce / 3;
+                characterScript.runSpeed = characterScript.runSpeed * muddyRunMultiplier;
+                characterScript.controller2D.m_JumpForce = characterScript.controller2D.m_JumpForce * muddyJumpMultiplier;
             }
         }
     }
@@ -67,8 +68,8 @@ public class TerrainScript : MonoBehaviour
             if (isMuddy)
             {
                 CharacterScript characterScript = hitInfo.gameObject.GetComponent<CharacterScript>();
-                characterScript.runSpeed = characterScript.runSpeed * 3;
-                characterScript.controller2D.m_JumpForce = characterScript.controller2D.m_JumpForce * 3;
+                characterScript.runSpeed = characterScript.runSpeed / muddyRunMultiplier;
+                characterScript.controller2D.m_JumpForce = characterScript.controller2D.m_JumpForce / muddyJumpMultiplier;
 
             }
         }

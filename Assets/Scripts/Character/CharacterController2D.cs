@@ -23,7 +23,7 @@ public class CharacterController2D : MonoBehaviour
 	const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
 	//const float k_FallRadius = .2f; // Radius of the overlap circle to determine if there is ground to walk towards
 	private bool m_Climbing;            // Whether or not the player is grounded.
-	const float k_ClimbingRadius = .2f;
+	const float k_ClimbingRadius = .45f;
 
 	private Rigidbody2D m_Rigidbody2D;
 	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
@@ -78,12 +78,15 @@ public class CharacterController2D : MonoBehaviour
 		bool wasClimbing = m_Climbing;
 		m_Climbing = false;
 
-		Collider2D[] climb_colliders = Physics2D.OverlapCircleAll(m_ClimbCheck.position, k_ClimbingRadius, m_WhatIsClimbable);
-		for (int i = 0; i < climb_colliders.Length; i++)
-		{
-			if (climb_colliders[i].gameObject != gameObject)
+		if (m_ClimbCheck)
+        {
+			Collider2D[] climb_colliders = Physics2D.OverlapCircleAll(m_ClimbCheck.position, k_ClimbingRadius, m_WhatIsClimbable);
+			for (int i = 0; i < climb_colliders.Length; i++)
 			{
-				m_Climbing = true;
+				if (climb_colliders[i].gameObject != gameObject)
+				{
+					m_Climbing = true;
+				}
 			}
 		}
 
