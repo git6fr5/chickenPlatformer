@@ -5733,7 +5733,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8f14ea3f2c149cf4ab058a5e50a9d7fe, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4563722a222929f408298f503bc6cf68, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5790,7 +5790,7 @@ MonoBehaviour:
   attackRange: 0
   respawnObject: {fileID: 0}
   runSpeed: 40
-  climbSpeed: 20
+  climbSpeed: 40
   verticalMove: 0
   inAir: 1
   fallCheck: {fileID: 0}
@@ -5869,7 +5869,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1.5}
+    oldSize: {x: 1, y: 1.25}
     newSize: {x: 1, y: 1.25}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -5888,7 +5888,7 @@ Animator:
   m_GameObject: {fileID: 4404902083916383090}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: af85dfd86ebd6b64bafdfd29072ac1ac, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1d37403963e47344d9850ffc44bcbada, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5910,9 +5910,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.027500004, y: -0.375}
+  m_Offset: {x: 0.027500004, y: -0.275}
   serializedVersion: 2
-  m_Radius: 0.375
+  m_Radius: 0.35
 --- !u!82 &4404902083916383100
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6021,11 +6021,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e57720553f4a514ebabf90d58d4bf3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleAnim: {fileID: 7400000, guid: 2565a3404343ec544925a9441d4c895c, type: 2}
-  runningAnim: {fileID: 7400000, guid: 5ca8c0df64d3677468fbf9873a02b48c, type: 2}
-  jumpingAnim: {fileID: 7400000, guid: 61c7e8b18d83d6d43ac4325b981a6f51, type: 2}
-  crouchingAnim: {fileID: 7400000, guid: a5303665634d0dc4eb18a1c4f08c9705, type: 2}
-  hurtAnim: {fileID: 0}
+  idleAnim: {fileID: 7400000, guid: 9a8664b72e687784fbdc4aa68316d63d, type: 2}
+  runningAnim: {fileID: 7400000, guid: 4cb5834ae473a9b49a8b34c822b7c334, type: 2}
+  jumpingAnim: {fileID: 7400000, guid: 7a96cd265f585b54888c2277635d283f, type: 2}
+  crouchingAnim: {fileID: 7400000, guid: 5777ee5365bf2ae4b9b8f2cf483bdce6, type: 2}
+  hurtAnim: {fileID: 7400000, guid: 442d82370ce8a2f41a26c2f247dc368e, type: 2}
   deathAnim: {fileID: 0}
   animator: {fileID: 4404902083916383098}
   x_speed: 0
