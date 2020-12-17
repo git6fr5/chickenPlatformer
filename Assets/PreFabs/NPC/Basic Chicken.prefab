@@ -812,11 +812,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idleAnim: {fileID: 7400000, guid: d06509a6356692c4281137a7d6e5f405, type: 2}
-  runningAnim: {fileID: 0}
+  runningAnim: {fileID: 7400000, guid: 3f4cfbc2697091e4da28bfb78a0252ac, type: 2}
   jumpingAnim: {fileID: 0}
   crouchingAnim: {fileID: 0}
   hurtAnim: {fileID: 7400000, guid: 1332e731a66eafc4ab1fd3c7779d9163, type: 2}
-  deathAnim: {fileID: 0}
+  deathAnim: {fileID: 7400000, guid: 16d92ac7974d81942ae3438b74e7b046, type: 2}
   animator: {fileID: 3851322548929372524}
   x_speed: 0
   inAir: 0

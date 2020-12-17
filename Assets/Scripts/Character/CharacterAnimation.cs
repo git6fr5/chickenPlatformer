@@ -20,11 +20,11 @@ public class CharacterAnimation : MonoBehaviour
     private List<AnimationClip> animationClips = new List<AnimationClip>();
     private AnimationClip[] controllerClips;
 
-    public float x_speed = 0f;
-    public bool inAir = false;
-    public bool crouch = false;
-    public bool hurt = false;
-    public bool death = false;
+    [HideInInspector] public float x_speed = 0f;
+    [HideInInspector] public bool inAir = false;
+    [HideInInspector] public bool crouch = false;
+    [HideInInspector] public bool hurt = false;
+    [HideInInspector] public bool death = false;
 
     private bool overriding = false;
     private string prevAnim;

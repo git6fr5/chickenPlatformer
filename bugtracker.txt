@@ -14,3 +14,8 @@ Controller was setting the m_Grounded boolean to false when it was called with j
 Landing is broken again a bit maybe after changing character size - might need to re adjust the ground check
 CLIMBING NOT WORKING PROPERLY - move this functionality from a climbing script to a climbCheck and climbable layer like how all the other movement is handled
 Bounce not working properly? (it's just very buggy, plus the animations??)
+
+17/12/2020
+Sometimes when objects fall too fast, they clip through colliders? Perhaps check the collision type (discrete v continuous)
+Death animation is not playing for some reason (maybe something wrong with the script, or shuffling the files around changed something(?) or maybe just not enough time
+When trying to destroy already accquired boxes, something goes wrong

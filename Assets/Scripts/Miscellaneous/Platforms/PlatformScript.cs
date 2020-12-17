@@ -12,6 +12,7 @@ public class PlatformScript : MonoBehaviour
     public LayerMask playerLayer;
     public bool isFalling;
     public float waitTime = 0f;
+    private float resetTime = 15f;
 
     public bool isMoving;
     public Vector2 direction;
@@ -57,6 +58,7 @@ public class PlatformScript : MonoBehaviour
             if (isFalling)
             {
                 StartCoroutine("Fall", waitTime);
+                StartCoroutine("FallReset", resetTime);
             }
             if (isMoving)
             {
@@ -88,6 +90,21 @@ public class PlatformScript : MonoBehaviour
         {
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
             GetComponent<Rigidbody2D>().gravityScale = 1f;
+        }
+
+        yield return null;
+    }
+
+    public IEnumerator FallReset(float elapsedTime)
+    {
+        yield return new WaitForSeconds(elapsedTime);
+
+        if (GetComponent<Rigidbody2D>())
+        {
+            transform.position = initPos;
+            transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
+            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            GetComponent<Rigidbody2D>().gravityScale = 0f;
         }
 
         yield return null;
