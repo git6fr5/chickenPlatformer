@@ -739,6 +739,7 @@ MonoBehaviour:
   climbSpeed: 20
   verticalMove: 0
   inAir: 1
+  climbing: 0
   fallCheck: {fileID: 0}
   abilityObjectList:
   - {fileID: 1617636350320523092}
@@ -815,6 +816,7 @@ MonoBehaviour:
   runningAnim: {fileID: 7400000, guid: 3f4cfbc2697091e4da28bfb78a0252ac, type: 2}
   jumpingAnim: {fileID: 0}
   crouchingAnim: {fileID: 0}
+  climbingAnim: {fileID: 0}
   hurtAnim: {fileID: 7400000, guid: 1332e731a66eafc4ab1fd3c7779d9163, type: 2}
   deathAnim: {fileID: 7400000, guid: 16d92ac7974d81942ae3438b74e7b046, type: 2}
   animator: {fileID: 3851322548929372524}
@@ -823,8 +825,9 @@ MonoBehaviour:
   crouch: 0
   hurt: 0
   death: 0
+  climbing: 0
   hurtDuration: 0.2
-  deathDuration: 0.4
+  deathDuration: 1
   hurtAudio: {fileID: 8300000, guid: 001b9dfe832a8304caba2d270ea5409b, type: 3}
   deathAudio: {fileID: 0}
   audioSource: {fileID: 3851322548929372520}

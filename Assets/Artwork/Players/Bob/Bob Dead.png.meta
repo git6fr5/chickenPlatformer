@@ -1,7 +1,31 @@
 fileFormatVersion: 2
-guid: 13a330fbc5d421b40a3d0d79aabfe2bb
+guid: d8e4d04cd24d28242a69b9ba060bc0f5
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -4052270773636103522
+    second: Bob Dead_0
+  - first:
+      213: 3801032681586039178
+    second: Bob Dead_1
+  - first:
+      213: -6135719790733422773
+    second: Bob Dead_2
+  - first:
+      213: -1161463956996850106
+    second: Bob Dead_3
+  - first:
+      213: -2193729940219338594
+    second: Bob Dead_4
+  - first:
+      213: 2766438869115887657
+    second: Bob Dead_5
+  - first:
+      213: -2969467111171055490
+    second: Bob Dead_6
+  - first:
+      213: -1543885767137800104
+    second: Bob Dead_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -43,7 +67,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
@@ -66,7 +90,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -78,7 +102,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -89,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bob Idle_0
+      name: Bob Dead_0
       rect:
         serializedVersion: 2
         x: 0
@@ -103,14 +127,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 317eaa7c1be9f1320800000000000000
-      internalID: 2530916002001774355
+      spriteID: e9209b3833173c7c0800000000000000
+      internalID: -4052270773636103522
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bob Idle_1
+      name: Bob Dead_1
       rect:
         serializedVersion: 2
         x: 16
@@ -124,14 +148,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c5022f0511d0563a0800000000000000
-      internalID: -6672912904855871396
+      spriteID: a89169dc51bffb430800000000000000
+      internalID: 3801032681586039178
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bob Idle_2
+      name: Bob Dead_2
       rect:
         serializedVersion: 2
         x: 32
@@ -145,14 +169,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 09e08f05bad02c770800000000000000
-      internalID: 8629474865444294288
+      spriteID: b4f0008db5b89daa0800000000000000
+      internalID: -6135719790733422773
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bob Idle_3
+      name: Bob Dead_3
       rect:
         serializedVersion: 2
         x: 48
@@ -166,8 +190,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 207eeb95b52fe4a10800000000000000
-      internalID: 1895718967331186434
+      spriteID: 64e78cf4fa6a1efe0800000000000000
+      internalID: -1161463956996850106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bob Dead_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9066140e3e4e81e0800000000000000
+      internalID: -2193729940219338594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bob Dead_5
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 0
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9206c768e7d546620800000000000000
+      internalID: 2766438869115887657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bob Dead_6
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e70a17235655ac6d0800000000000000
+      internalID: -2969467111171055490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bob Dead_7
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 0
+        width: 16
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85058fb1314039ae0800000000000000
+      internalID: -1543885767137800104
       vertices: []
       indices: 
       edges: []

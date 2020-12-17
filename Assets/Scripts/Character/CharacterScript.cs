@@ -58,7 +58,7 @@ public class CharacterScript : MonoBehaviour
     bool jump = false;
     bool crouch = false;
     [HideInInspector] public bool inAir = true;
-    //[HideInInspector] public bool climbing = false;
+    [HideInInspector] public bool climbing = false;
 
     public GameObject fallCheck;
 
@@ -283,18 +283,20 @@ public class CharacterScript : MonoBehaviour
         }
         if (Client)
         {
-            Respawn();
+            StartCoroutine(Respawn(1.0f));
         }
         else
         {
             DropCoins();
-            Destroy(gameObject, 0.4f);
+            Destroy(gameObject, 1.0f);
         }
         onDeath = false;
     }
 
-    private void Respawn()
+    private IEnumerator Respawn(float elapsedTime)
     {
+        yield return new WaitForSeconds(elapsedTime);
+
         damageTypes = new Dictionary<string, float>();
         shieldBases = new Dictionary<string, float>();
         abilityObjectList = new List<GameObject>();
@@ -307,6 +309,9 @@ public class CharacterScript : MonoBehaviour
         SelectAbility(0);
 
         transform.position = new Vector3(respawnObject.transform.position.x, respawnObject.transform.position.y, 0);
+
+        yield return null;
+ 
     }
 
     private void DropCoins()
@@ -369,6 +374,7 @@ public class CharacterScript : MonoBehaviour
         animation2D.crouch = crouch;
         animation2D.x_speed = Mathf.Abs(horizontalMove);
         animation2D.inAir = inAir;
+        animation2D.climbing = climbing;
     }
 
     private void AIMotionControlFlag()

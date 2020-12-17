@@ -12,6 +12,7 @@ public class CharacterAnimation : MonoBehaviour
     public AnimationClip runningAnim;
     public AnimationClip jumpingAnim;
     public AnimationClip crouchingAnim;
+    public AnimationClip climbingAnim;
     public AnimationClip hurtAnim;
     public AnimationClip deathAnim;
 
@@ -25,6 +26,7 @@ public class CharacterAnimation : MonoBehaviour
     [HideInInspector] public bool crouch = false;
     [HideInInspector] public bool hurt = false;
     [HideInInspector] public bool death = false;
+    [HideInInspector] public bool climbing = false;
 
     private bool overriding = false;
     private string prevAnim;
@@ -113,6 +115,11 @@ public class CharacterAnimation : MonoBehaviour
         if (animated) { return; }
 
         /*--- Mid Priority ---*/
+        if (climbing && climbingAnim)
+        {
+            animator.Play(climbingAnim.name);
+            animated = true;
+        }
         if (crouch && crouchingAnim)
         {
             animator.Play(crouchingAnim.name);

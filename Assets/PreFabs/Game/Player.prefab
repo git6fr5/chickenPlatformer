@@ -208,7 +208,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1005729231036220215
 Transform:
   m_ObjectHideFlags: 0
@@ -217,7 +217,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1005729231036220239}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 56.97, y: 4.73, z: 5}
+  m_LocalPosition: {x: 0, y: 0, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4053986262875640564}
@@ -1134,13 +1134,13 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 10
+  m_Priority: 5
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 4053986262875640564}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 10
+    OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -1249,7 +1249,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 9.98677
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1869,6 +1869,7 @@ MonoBehaviour:
   climbSpeed: 40
   verticalMove: 0
   inAir: 1
+  climbing: 0
   fallCheck: {fileID: 0}
   abilityObjectList: []
   selectedAbilityIndex: 0
@@ -1944,16 +1945,18 @@ MonoBehaviour:
   runningAnim: {fileID: 7400000, guid: 4cb5834ae473a9b49a8b34c822b7c334, type: 2}
   jumpingAnim: {fileID: 7400000, guid: 7a96cd265f585b54888c2277635d283f, type: 2}
   crouchingAnim: {fileID: 7400000, guid: 5777ee5365bf2ae4b9b8f2cf483bdce6, type: 2}
+  climbingAnim: {fileID: 7400000, guid: 3abe8a5ab64f9624283b60d212936058, type: 2}
   hurtAnim: {fileID: 7400000, guid: 442d82370ce8a2f41a26c2f247dc368e, type: 2}
-  deathAnim: {fileID: 0}
+  deathAnim: {fileID: 7400000, guid: b88aade95e479914f830a52a65790ce7, type: 2}
   animator: {fileID: 4053986262875640570}
   x_speed: 0
   inAir: 0
   crouch: 0
   hurt: 0
   death: 0
+  climbing: 0
   hurtDuration: 0.2
-  deathDuration: 0.4
+  deathDuration: 1
   hurtAudio: {fileID: 0}
   deathAudio: {fileID: 0}
   audioSource: {fileID: 4053986262875640572}
