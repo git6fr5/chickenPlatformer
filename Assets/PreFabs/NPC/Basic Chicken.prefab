@@ -54,14 +54,14 @@ MonoBehaviour:
   isBuff: 0
   isAOE: 0
   isPassive: 0
-  cooldown: 2
+  cooldown: 0.8
   objectBase: {fileID: 1617636350977610471}
   force: 600
   radius: 0
   damageValue: 1
   damageType: magical
   casterObject: {fileID: 0}
-  target: {x: 0, y: 0}
+  targetDirection: {x: 0, y: 0}
   targetLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -527,7 +527,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3851322548497196424}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.4, z: 0}
+  m_LocalPosition: {x: 0, y: -0.473, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3851322548929372561}

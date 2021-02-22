@@ -12,7 +12,7 @@ public class SkyBoxScript : MonoBehaviour
 
     /* --- Time --- */
     public float time = 0f; // in seconds
-    private float tickRate = 0f; // how many seconds in game correspond to 1 IRL seconds
+    private float tickRate = 20f; // how many seconds in game correspond to 1 IRL seconds
     public float dayLength = 86400f; // in seconds, adjusted for tickRate in start
 
     private int seconds;

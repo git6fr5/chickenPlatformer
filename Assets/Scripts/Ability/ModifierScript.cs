@@ -10,6 +10,7 @@ public class ModifierScript : MonoBehaviour
     bool DEBUG_root = true;
     public float lifeTime;
     private float livedTime = 0f;
+    private float bounceBufferTime = 0.1f;
 
     public GameObject abilityObject;
     private AbilityScript abilityScript;
@@ -40,14 +41,17 @@ public class ModifierScript : MonoBehaviour
         }
     }
 
-    void OnTriggerStay2D(Collider2D hitInfo)
+    void OnTriggerEnter2D(Collider2D hitInfo)
     {
 
+    }
+
+    void OnTriggerStay2D(Collider2D hitInfo)
+    {
         if (bounce)
         {
             Bounce(hitInfo);
         }
-
         if (root)
         {
             Root(hitInfo);
@@ -70,8 +74,9 @@ public class ModifierScript : MonoBehaviour
 
     void Bounce(Collider2D hitInfo)
     {
-
         LayerMask layerMask = LayerMask.GetMask(LayerMask.LayerToName(hitInfo.gameObject.layer));
+
+        print(LayerMask.LayerToName(hitInfo.gameObject.layer));
 
         if (LayerMask.LayerToName(hitInfo.gameObject.layer) == "Ground" || layerMask == abilityScript.targetLayer)
         {
@@ -86,6 +91,17 @@ public class ModifierScript : MonoBehaviour
             CharacterScript characterScript = hitInfo.gameObject.GetComponent<CharacterScript>();
             characterScript.Damage(abilityScript.damageValue, abilityScript.damageType);
         }
+
+        bounce = false;
+        StartCoroutine(BounceBuffer(bounceBufferTime));
+    }
+
+    private IEnumerator BounceBuffer(float elapsedTime)
+    {
+        yield return new WaitForSeconds(elapsedTime);
+
+        bounce = true;
+        yield return null;
     }
 
     void BouncePoint()

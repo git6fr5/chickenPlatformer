@@ -19,3 +19,9 @@ Bounce not working properly? (it's just very buggy, plus the animations??)
 Sometimes when objects fall too fast, they clip through colliders? Perhaps check the collision type (discrete v continuous)
 Death animation is not playing for some reason (maybe something wrong with the script, or shuffling the files around changed something(?) or maybe just not enough time
 When trying to destroy already accquired boxes, something goes wrong
+
+28/12/2020
+
+SOMETHING STILL SO WEIRD WITH THE BOUNCE ABILITY!
+
+also because in the IEnumerator handling respawning, we disable client, if the player dies again (takes any damage) within the timeframe before client is re-enabled then his gameObject is destroyed

@@ -93,7 +93,7 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 
-	public void Move(float xMove, float yMove, bool crouch, bool jump)
+	public bool Move(float xMove, float yMove, bool crouch, bool jump)
 	{
 
 		/*if (m_FallCheck)
@@ -179,7 +179,9 @@ public class CharacterController2D : MonoBehaviour
 			Vector3 targetVelocity = new Vector2(m_Rigidbody2D.velocity.x, yMove * 10f);
 			// And then smoothing it out and applying it to the character
 			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
+			return (m_Climbing); // make shift crackhead fix
 		}
+		return m_Climbing;
 	}
 
 

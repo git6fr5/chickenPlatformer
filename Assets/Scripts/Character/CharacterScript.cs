@@ -283,10 +283,12 @@ public class CharacterScript : MonoBehaviour
         }
         if (Client)
         {
+            Client = false;
             StartCoroutine(Respawn(1.0f));
         }
         else
         {
+            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
             DropCoins();
             Destroy(gameObject, 1.0f);
         }
@@ -310,6 +312,8 @@ public class CharacterScript : MonoBehaviour
 
         transform.position = new Vector3(respawnObject.transform.position.x, respawnObject.transform.position.y, 0);
 
+        Client = true;
+
         yield return null;
  
     }
@@ -318,7 +322,7 @@ public class CharacterScript : MonoBehaviour
     {
         for (int i = 0; i<coins; i++)
         {
-            Instantiate(coinObject, transform.position, Quaternion.identity);
+            Instantiate(coinObject, transform.position, Quaternion.identity).SetActive(true);
         }
     }
 
@@ -368,7 +372,7 @@ public class CharacterScript : MonoBehaviour
     private void MotionControl()
     {
         if (DEBUG_motion) { print(DebugTag + "Running MotionControl"); }
-        controller2D.Move(horizontalMove * Time.fixedDeltaTime, verticalMove * Time.fixedDeltaTime, crouch, jump);
+        climbing = controller2D.Move(horizontalMove * Time.fixedDeltaTime, verticalMove * Time.fixedDeltaTime, crouch, jump);
         jump = false;
 
         animation2D.crouch = crouch;
@@ -452,7 +456,7 @@ public class CharacterScript : MonoBehaviour
         if (Input.GetKeyDown("z") || Input.GetMouseButtonDown(0)) 
         { 
             print(DebugTag + "Pressed Cast");
-            enemyDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            enemyDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
             cast = true; 
         }
         if ((Input.GetKeyDown("x") || Input.GetMouseButtonDown(1)) && (abilityObjectList.Count > 0) )
@@ -487,7 +491,7 @@ public class CharacterScript : MonoBehaviour
 
     private void AIAbilityControlFlag()
     {
-        if (aggro && (Vector3.Distance(transform.position, enemyObject.transform.position) < attackRange))
+        if (aggro && (Vector3.Distance(transform.position, enemyObject.transform.position) <= attackRange))
         {
             cast = true;
         }

@@ -61,7 +61,7 @@ MonoBehaviour:
   damageValue: 5
   damageType: mechanical
   casterObject: {fileID: 0}
-  target: {x: 0, y: 0}
+  targetDirection: {x: 0, y: 0}
   targetLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -447,7 +447,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2207024005965964933}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.2, z: 0}
+  m_LocalPosition: {x: 0, y: -1.64, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2207024006145952005}
@@ -705,6 +705,7 @@ MonoBehaviour:
   climbSpeed: 20
   verticalMove: 0
   inAir: 1
+  climbing: 0
   fallCheck: {fileID: 5607292719961813515}
   abilityObjectList:
   - {fileID: 6257565541801001304}
@@ -736,6 +737,7 @@ MonoBehaviour:
   runningAnim: {fileID: 0}
   jumpingAnim: {fileID: 0}
   crouchingAnim: {fileID: 0}
+  climbingAnim: {fileID: 0}
   hurtAnim: {fileID: 7400000, guid: f63585811ad2dfb43a95e21c55a148e5, type: 2}
   deathAnim: {fileID: 0}
   animator: {fileID: 2207024006145952008}
@@ -744,6 +746,7 @@ MonoBehaviour:
   crouch: 0
   hurt: 0
   death: 0
+  climbing: 0
   hurtDuration: 0.2
   deathDuration: 0.4
   hurtAudio: {fileID: 8300000, guid: 001b9dfe832a8304caba2d270ea5409b, type: 3}
@@ -1091,7 +1094,7 @@ MonoBehaviour:
   damageValue: 0.2
   damageType: magical
   casterObject: {fileID: 0}
-  target: {x: 0, y: 0}
+  targetDirection: {x: 0, y: 0}
   targetLayer:
     serializedVersion: 2
     m_Bits: 0

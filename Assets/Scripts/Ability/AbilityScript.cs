@@ -32,7 +32,7 @@ public class AbilityScript : MonoBehaviour
     public string damageType;
 
     [HideInInspector] public GameObject casterObject;
-    [HideInInspector] public Vector2 target;
+    [HideInInspector] public Vector2 targetDirection;
     [HideInInspector] public LayerMask targetLayer;
 
     void FixedUpdate()
@@ -97,17 +97,16 @@ public class AbilityScript : MonoBehaviour
     }
 
     // abilities are cast by pressing a button
-    public void Cast(GameObject _casterObject, bool cast, Vector2 _target, LayerMask _targetLayer)
+    public void Cast(GameObject _casterObject, bool cast, Vector2 _targetDirection, LayerMask _targetLayer)
     {
         if (cast)
         {
             casterObject = _casterObject;
-            target = _target;
+            targetDirection = _targetDirection;
             targetLayer = _targetLayer;
 
             if (currentCooldown == 0f)
             {
-                Vector2 targetDirection = -((Vector2)casterObject.transform.position - target);
                 targetDirection.Normalize();
                 GameObject projectileObject = Instantiate(objectBase, casterObject.transform.position + (Vector3)targetDirection, Quaternion.identity);
                 projectileObject.SetActive(true);

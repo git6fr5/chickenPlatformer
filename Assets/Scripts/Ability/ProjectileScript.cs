@@ -104,7 +104,7 @@ public class ProjectileScript : MonoBehaviour
 
     void Fire()
     {
-        Vector2 targetDirection = -((Vector2)abilityScript.casterObject.transform.position - abilityScript.target);
+        Vector2 targetDirection = abilityScript.targetDirection;
         targetDirection.Normalize();
         body.AddForce(abilityScript.force * targetDirection);
         transform.right = targetDirection;
@@ -139,7 +139,7 @@ public class ProjectileScript : MonoBehaviour
 
     void SetDirection()
     {
-        if (-((Vector2)abilityScript.casterObject.transform.position - abilityScript.target).x < 0)
+        if (abilityScript.targetDirection.x < 0)
         {
             orientationAngle = 180;
         }
